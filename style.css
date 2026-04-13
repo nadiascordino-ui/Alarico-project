@@ -1151,49 +1151,71 @@ h4 {
 
 #slide-8 {
     align-items: center;
+    justify-content: flex-start !important;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+#slide-8 h1 {
+    font-size: clamp(1rem, 2.2vw, 1.8rem);
+    line-height: 1.3;
+    padding: 0 1rem;
 }
 
 .photo-wall {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 22px;
-    width: 92%;
-    max-width: 1100px;
-    padding: 2rem 1rem 2.5rem;
+    align-items: flex-start;
+    gap: clamp(10px, 1.5vw, 22px);
+    width: 96%;
+    max-width: 1200px;
+    padding: 1rem 0.5rem 2rem;
     position: relative;
     z-index: 10;
+    box-sizing: border-box;
 }
 
 .photo-card {
     position: relative;
     background: #f7f3e8;
-    padding: 8px 8px 28px;
+    padding: 6px 6px 24px;
     box-shadow: 3px 5px 16px rgba(0,0,0,0.6);
     cursor: zoom-in;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    flex-shrink: 0;
+    flex: 0 0 auto;
+    width: clamp(100px, 13vw, 170px);
     z-index: 1;
+    box-sizing: border-box;
 }
 
 .photo-card img {
     display: block;
-    width: 185px;
-    height: 140px;
-    object-fit: cover;
+    width: 100%;
+    height: clamp(76px, 10vw, 130px);
+    object-fit: contain;
+    background: #f7f3e8;
     pointer-events: none;
 }
 
+.photo-card-featured-row {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+}
+
 .photo-card-featured {
-    padding: 10px 10px 36px;
+    padding: 10px 10px 34px;
+    width: clamp(220px, 28vw, 360px);
     z-index: 2;
+    transform: rotate(-0.5deg) translateY(2px);
 }
 
 .photo-card-featured img {
-    width: 265px;
-    height: 200px;
+    height: clamp(165px, 21vw, 272px);
 }
 
 /* Nastro adesivo — angolo alto-sinistra */
@@ -1893,9 +1915,11 @@ h4 {
     #final-scrigno { width: 110px !important; }
 
     /* --- Slide 8: Backstage --- */
-    .photo-wall { gap: 14px; padding: 1rem 0.5rem 1.5rem; }
-    .photo-card img { width: 130px; height: 100px; }
-    .photo-card-featured img { width: 180px; height: 136px; }
+    .photo-wall { gap: 10px; padding: 0.5rem 0.3rem 1.5rem; width: 100%; }
+    .photo-card { width: clamp(85px, 28vw, 130px); padding: 5px 5px 20px; }
+    .photo-card img { height: clamp(65px, 21vw, 100px); }
+    .photo-card-featured { width: clamp(120px, 40vw, 180px); }
+    .photo-card-featured img { height: clamp(90px, 30vw, 136px); }
 
     /* --- Audio panel --- */
     .audio-controls-panel {
