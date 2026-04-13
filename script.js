@@ -177,8 +177,51 @@ function restartGame() {
 function initSlideAssets(slideId) {
     if (slideId === 4) setupDragAndDrop();
     if (slideId === 5) initPhraseAnimation();
+    if (slideId === 8) layoutSpiral();
     if (window.lucide) window.lucide.createIcons();
 }
+
+function layoutSpiral() {
+    const wall = document.querySelector('#slide-8 .photo-wall');
+    if (!wall) return;
+    const wW = wall.offsetWidth;
+    const wH = wall.offsetHeight;
+    if (!wW || !wH) return;
+
+    const cx = wW / 2;
+    const cy = wH / 2;
+    const CARD_W = 155;
+    const CARD_H = 140; // padding top(7) + img(108) + padding bottom(25)
+    const GOLDEN = 137.5077 * Math.PI / 180;
+
+    const all    = [...wall.querySelectorAll('.photo-card')];
+    const feat   = wall.querySelector('.photo-card-featured');
+    const others = all.filter(c => c !== feat);
+    const N      = others.length;
+
+    // Elliptical expansion so spiral fills the available area
+    const rX = wW * 0.40;
+    const rY = wH * 0.40;
+
+    // 13.jpg al centro
+    if (feat) {
+        feat.style.left = (cx - CARD_W / 2) + 'px';
+        feat.style.top  = (cy - CARD_H / 2) + 'px';
+    }
+
+    // Le altre a spirale con angolo aureo (non si sovrappongono mai)
+    others.forEach((card, i) => {
+        const n    = i + 1;
+        const frac = Math.sqrt(n) / Math.sqrt(N);
+        const ang  = n * GOLDEN;
+        card.style.left = (cx + rX * frac * Math.cos(ang) - CARD_W / 2) + 'px';
+        card.style.top  = (cy + rY * frac * Math.sin(ang) - CARD_H / 2) + 'px';
+    });
+}
+
+window.addEventListener('resize', () => {
+    if (currentSlide === 8) layoutSpiral();
+});
 
 function initPhraseAnimation() {
     const el = document.querySelector('.dossier-phrase');
@@ -402,16 +445,16 @@ document.head.appendChild(style);
 /* --- DOSSIER LOGIC --- */
 const dossierData = {
     mito: {
-        title: "La voce del mito",
-        subtitle: "Jordanes e il racconto del Busento",
+        title: "",
+        subtitle: "",
         body: "Jordanes è la fonte da cui nasce la versione più famosa della storia.<br><br>Secondo il suo racconto, dopo la morte di Alarico il Busento venne deviato, la tomba scavata nel letto del fiume e il re sepolto con il suo tesoro. Poi l’acqua tornò a scorrere, cancellando ogni traccia.<br><br>È una narrazione potente, visiva, memorabile.<br>È il cuore della leggenda.",
         highlight: "Ciò che rende immortale un mito non è la prova, ma la forza del racconto.",
         icon: "scroll",
         image: "jordanes.png"
     },
     dubbio: {
-        title: "La voce del dubbio",
-        subtitle: "Olimpiodoro e il tesoro perduto",
+        title: "",
+        subtitle: "",
         body: "Una tradizione alternativa attribuita a Olimpiodoro di Tebe mette in crisi la versione più nota.<br><br>Secondo questa ipotesi, le ricchezze di Alarico non sarebbero state sepolte in Calabria. Sarebbero rimaste altrove, forse in area francese.<br><br>Se questa versione fosse vera, il mito del Busento perderebbe il suo fondamento materiale.<br>Resterebbe la leggenda. Ma non il tesoro.",
         highlight: "A volte basta un dubbio per incrinare una certezza secolare.",
         icon: "book-open",
@@ -451,7 +494,9 @@ function showDossier(type) {
     const scrollZone = document.getElementById('dossier-scroll-zone');
     if (scrollZone) scrollZone.style.overflowY = type === 'verdetto' ? 'hidden' : 'auto';
 
-    document.getElementById('dossier-title').innerHTML = data.title;
+    const titleEl = document.getElementById('dossier-title');
+    titleEl.innerHTML = data.title;
+    titleEl.style.display = data.title ? 'block' : 'none';
     document.getElementById('dossier-subtitle').innerHTML = data.subtitle;
     document.getElementById('dossier-subtitle').style.display = data.subtitle ? 'block' : 'none';
     document.getElementById('dossier-body').innerHTML = data.body;
