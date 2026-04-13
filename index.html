@@ -293,6 +293,10 @@
                     onclick="showFeedback('Grotte degli Alimena', 'Cavità naturali associate al passaggio dei Goti.', false, '11.jpg')">
                     <i data-lucide="map-pin"></i>
                 </div>
+                <div class="hotspot"
+                    onclick="showFeedback('POLICASTRO, CILENTO — Fiume Bussento', 'La tesi di Don Tangredi: un clamoroso errore dei copisti medievali avrebbe eliminato la doppia S dal nome del fiume. Il Bussento, nel Cilento, si trovava lungo la Via Popilia, rotta logica percorsa dall\'esercito visigoto nella marcia verso sud.', false, 'bussento.jpg')">
+                    <i data-lucide="map-pin"></i>
+                </div>
             </div>
 
             <button class="btn" onclick="nextSlide()">Ci sei quasi!</button>
@@ -337,24 +341,54 @@
         </div>
 
         <div style="position: relative; z-index: 10; text-align: center; padding: 1.5rem 2rem 1rem;">
-            <h2 style="color: var(--text-muted); letter-spacing: 3px; font-size: 0.9rem;">Il progetto</h2>
-            <h1 style="color: var(--gold); font-size: 2rem; margin-bottom: 0.3rem;">Backstage</h1>
+            <h1 style="color: var(--gold); font-size: 2rem; margin-bottom: 0.3rem;">Backstage: Non solo un progetto, ma
+                un viaggio insieme nei luoghi di Alarico</h1>
             <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Clicca su una foto per ingrandirla</p>
         </div>
 
-        <div class="backstage-grid" style="position: relative; z-index: 10;">
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/alarico guarda.jpeg')"
-                style="background-image: url('assets/gallery/alarico guarda.jpeg');"></button>
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/01.jpg')"
-                style="background-image: url('assets/gallery/01.jpg');"></button>
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/02.jpg')"
-                style="background-image: url('assets/gallery/02.jpg');"></button>
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/05.jpg')"
-                style="background-image: url('assets/gallery/05.jpg');"></button>
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/coccinella.jpeg')"
-                style="background-image: url('assets/gallery/coccinella.jpeg');"></button>
-            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/13.jpg')"
-                style="background-image: url('assets/gallery/13.jpg');"></button>
+        <div class="photo-wall">
+            <div class="photo-card" onclick="openLightbox('assets/gallery/alarico guarda.jpeg')">
+                <img src="assets/gallery/alarico guarda.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/21.jpeg')">
+                <img src="assets/gallery/21.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/22.jpeg')">
+                <img src="assets/gallery/22.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/23.jpeg')">
+                <img src="assets/gallery/23.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/24.jpeg')">
+                <img src="assets/gallery/24.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/01.jpg')">
+                <img src="assets/gallery/01.jpg" alt="Backstage">
+            </div>
+            <div class="photo-card photo-card-featured" onclick="openLightbox('assets/gallery/13.jpg')">
+                <img src="assets/gallery/13.jpg" alt="ALARICO — scritta sul Busento">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/28.jpg')">
+                <img src="assets/gallery/28.jpg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/29.jpg')">
+                <img src="assets/gallery/29.jpg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/30.jpeg')">
+                <img src="assets/gallery/30.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/02.jpg')">
+                <img src="assets/gallery/02.jpg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/05.jpg')">
+                <img src="assets/gallery/05.jpg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/coccinella.jpeg')">
+                <img src="assets/gallery/coccinella.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/27.png')">
+                <img src="assets/gallery/27.png" alt="Backstage">
+            </div>
         </div>
 
         <div style="position: relative; z-index: 10; margin-top: 1.5rem;">
@@ -392,8 +426,8 @@
         <div style="max-height: 70vh; overflow-y: auto; padding-right: 15px;">
             <div
                 style="width: 100%; max-height: 400px; overflow: hidden; margin-bottom: 2rem; border-bottom: 1px solid var(--gold); background: rgba(0,0,0,0.5); display: flex; justify-content: center;">
-                <img src="assets/gallery/Foto Alarico (9 apr 2026 alle ore 16_34)(8).jpg"
-                    style="max-width: 100%; max-height: 400px; object-fit: contain; opacity: 0.9;"
+                <img src="assets/gallery/28.jpg"
+                    style="max-width: 100%; max-height: 400px; object-fit: cover; opacity: 0.9;"
                     alt="Alarico al Busento">
             </div>
             <h3 style="margin-bottom: 2rem;">Carducci e La Tomba nel Busento</h3>
@@ -486,7 +520,7 @@
         <span class="close-modal" onclick="closeModal('feedback-modal')" style="z-index: 10;">&times;</span>
         <h3 id="feedback-title" style="margin-bottom: 1rem; flex-shrink: 0;">Dettaglio</h3>
         <img id="feedback-img" src="" alt="Dettaglio"
-            style="display: none; flex-shrink: 0; width: 100%; max-height: 250px; object-fit: cover; object-position: top center; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--gold);">
+            style="display: none; flex-shrink: 0; width: 100%; max-height: 220px; object-fit: contain; object-position: center; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--gold);">
         <div id="feedback-scroll-zone"
             style="overflow-y: auto; overflow-x: hidden; flex-grow: 1; margin-bottom: 1.5rem; padding-right: 10px;">
             <p id="feedback-text" style="text-align: justify; margin-bottom: 0;"></p>

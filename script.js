@@ -430,8 +430,9 @@ const dossierData = {
         body: `<span class="verdetto-line" style="animation-delay:0s">Jordanes offre il racconto più affascinante.</span>
 <span class="verdetto-line" style="animation-delay:1.3s">Olimpiodoro introduce una crepa nel mito.</span>
 <span class="verdetto-line" style="animation-delay:2.6s">Le verifiche moderne chiedono prove concrete.</span>
-<br><br><span class="verdetto-conclusion">La tomba di Alarico resta sospesa tra la forza della leggenda e il rigore della storia.</span>`,
-        highlight: "Il Busento conserva il silenzio.<br>La storia continua a cercare.",
+<span class="verdetto-conclusion" style="animation-delay:3.9s">La tomba di Alarico resta sospesa tra la forza della leggenda e il rigore della storia.</span>
+<span class="verdetto-finale" style="animation-delay:5.2s">Il Busento conserva il silenzio.<br>La storia continua a cercare.</span>`,
+        highlight: "",
         icon: "scale"
     }
 };

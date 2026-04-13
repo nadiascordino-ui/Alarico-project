@@ -524,9 +524,13 @@ h4 {
 }
 
 /* Modal body text */
-#dossier-body,
-#feedback-text {
+#dossier-body {
     animation: textGlow 3s ease-in-out infinite;
+}
+
+#feedback-text {
+    animation: none;
+    text-shadow: none;
 }
 
 #dossier-subtitle {
@@ -707,7 +711,7 @@ h4 {
 }
 
 #feedback-modal, #dossier-modal {
-    width: 700px;
+    width: 460px;
 }
 
 /* Custom Scrollbar for Poem Modal */
@@ -1115,6 +1119,8 @@ h4 {
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
     object-position: center;
     margin-bottom: 2rem;
+    background: #0a0a0a;
+    filter: contrast(1.06) saturate(1.08);
 }
 
 /* Audio control visibility transition */
@@ -1145,35 +1151,101 @@ h4 {
 
 #slide-8 {
     align-items: center;
+    overflow-y: auto;
 }
 
-.backstage-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 90%;
-    max-width: 1000px;
-    padding: 0 1rem;
+.photo-wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    width: 92%;
+    max-width: 1100px;
+    padding: 2rem 1rem 2.5rem;
+    position: relative;
+    z-index: 10;
 }
 
-.backstage-thumb {
-    aspect-ratio: 4 / 3;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    border-radius: 6px;
+.photo-card {
+    position: relative;
+    background: #f7f3e8;
+    padding: 8px 8px 28px;
+    box-shadow: 3px 5px 16px rgba(0,0,0,0.6);
     cursor: zoom-in;
-    transition: all 0.3s ease;
-    filter: brightness(0.8) saturate(0.85);
-    padding: 0;
-    outline: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
+    z-index: 1;
 }
 
-.backstage-thumb:hover {
-    border-color: var(--gold);
-    filter: brightness(1.05) saturate(1.1);
-    transform: scale(1.03);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+.photo-card img {
+    display: block;
+    width: 185px;
+    height: 140px;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.photo-card-featured {
+    padding: 10px 10px 36px;
+    z-index: 2;
+}
+
+.photo-card-featured img {
+    width: 265px;
+    height: 200px;
+}
+
+/* Nastro adesivo — angolo alto-sinistra */
+.photo-card::before {
+    content: '';
+    position: absolute;
+    width: 52px;
+    height: 18px;
+    background: rgba(225, 218, 148, 0.72);
+    border: 1px solid rgba(195, 186, 100, 0.3);
+    top: -9px;
+    left: 16px;
+    transform: rotate(-24deg);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+/* Nastro adesivo — angolo basso-destra */
+.photo-card::after {
+    content: '';
+    position: absolute;
+    width: 52px;
+    height: 18px;
+    background: rgba(225, 218, 148, 0.72);
+    border: 1px solid rgba(195, 186, 100, 0.3);
+    bottom: -9px;
+    right: 16px;
+    transform: rotate(-24deg);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+/* Rotazioni organiche per ogni foto */
+.photo-card:nth-child(1)  { transform: rotate(-3deg)    translateY(5px); }
+.photo-card:nth-child(2)  { transform: rotate(2.5deg)   translateY(-7px); }
+.photo-card:nth-child(3)  { transform: rotate(-1.5deg)  translateY(9px); }
+.photo-card:nth-child(4)  { transform: rotate(4deg)     translateY(-3px); }
+.photo-card:nth-child(5)  { transform: rotate(-2deg)    translateY(6px); }
+.photo-card:nth-child(6)  { transform: rotate(3.5deg)   translateY(-9px); }
+.photo-card:nth-child(7)  { transform: rotate(-0.5deg)  translateY(2px); }
+.photo-card:nth-child(8)  { transform: rotate(1.5deg)   translateY(-5px); }
+.photo-card:nth-child(9)  { transform: rotate(-4deg)    translateY(7px); }
+.photo-card:nth-child(10) { transform: rotate(3deg)     translateY(-4px); }
+.photo-card:nth-child(11) { transform: rotate(-2.5deg)  translateY(8px); }
+.photo-card:nth-child(12) { transform: rotate(1deg)     translateY(-6px); }
+.photo-card:nth-child(13) { transform: rotate(-3.5deg)  translateY(4px); }
+.photo-card:nth-child(14) { transform: rotate(2deg)     translateY(-8px); }
+
+.photo-card:hover {
+    transform: rotate(0deg) scale(1.07) !important;
+    box-shadow: 6px 10px 32px rgba(0,0,0,0.75);
+    z-index: 50;
 }
 
 /* --- COLLAGE FINALE (legacy) --- */
@@ -1660,17 +1732,41 @@ h4 {
     font-style: italic;
     color: var(--text-muted);
     font-size: 1.05rem;
-    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
     animation: verdettFade 1.1s ease-out forwards;
 }
 
 .verdetto-conclusion {
     display: block;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
     color: var(--text-white);
     font-size: 1rem;
-    opacity: 0.85;
+    line-height: 1.35;
+    opacity: 0;
     text-align: center;
+    font-style: italic;
+    animation: verdettFade 1.1s ease-out forwards;
+}
+
+.verdetto-finale {
+    display: block;
+    margin-top: 1rem;
+    color: var(--gold);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    opacity: 0;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    animation: verdettFade 1.1s ease-out forwards;
+}
+
+#dossier-highlight:empty {
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 /* ============================================================
@@ -1797,7 +1893,9 @@ h4 {
     #final-scrigno { width: 110px !important; }
 
     /* --- Slide 8: Backstage --- */
-    .backstage-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; width: 95%; }
+    .photo-wall { gap: 14px; padding: 1rem 0.5rem 1.5rem; }
+    .photo-card img { width: 130px; height: 100px; }
+    .photo-card-featured img { width: 180px; height: 136px; }
 
     /* --- Audio panel --- */
     .audio-controls-panel {
