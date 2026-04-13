@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <audio id="audio-river" src="assets/gallery/fruscio.mp3" loop></audio>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Silenzio del Busento: l’ultimo viaggio di Alarico</title>
+    <meta name="description" content="Un'indagine tra storia e leggenda sul re dei Visigoti e il suo tesoro nascosto.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="entry-overlay">
+    <div class="entry-content">
+        <h1 class="glow-text">La vera storia di Alarico, re dei Visigoti</h1>
+        <p>Un'indagine immersiva tra storia e leggenda.</p>
+        <button class="btn majestic-btn" onclick="enterExperience()">Sei pronto a scoprire la verità?</button>
+    </div>
+</div>
+
+<div id="splash-screen" style="display: none;">
+    <h1 class="glow-text">Il Silenzio del Busento</h1>
+    <button id="splash-btn" onclick="startGame()">L’ultimo viaggio del re Alarico</button>
+</div>
+
+<audio id="audio-main" src="assets/gallery/bg_main.mp3" loop></audio>
+<audio id="audio-special" src="assets/gallery/bg_special.mp3"></audio>
+<audio id="audio-voce-finale" src="assets/gallery/vocefinale.mp3"></audio>
+
+<div class="audio-controls-panel" id="audio-panel" style="display: none;">
+    <div class="audio-track-control" id="river-control">
+        <i data-lucide="waves" class="track-icon" title="Volume Fiume"></i>
+        <input type="range" id="volume-river" min="0" max="1" step="0.1" value="0.2"
+            oninput="setRiverVolume(this.value)">
+    </div>
+    <div class="audio-track-control" id="music-control">
+        <i data-lucide="music" class="track-icon" title="Volume Musica"></i>
+        <input type="range" id="volume-main" min="0" max="1" step="0.1" value="0.3" oninput="setMainVolume(this.value)">
+    </div>
+    <div id="audio-toggle" class="audio-btn master-mute" onclick="toggleAudio()" title="Muto Master">
+        <i data-lucide="volume-2"></i>
+    </div>
+</div>
+
+<div class="skip-nav">
+    <div class="skip-btn" onclick="prevSlide()" title="Slide Precedente">
+        <i data-lucide="chevron-left"></i>
+    </div>
+    <div class="skip-btn" onclick="nextSlide()" title="Slide Successiva">
+        <i data-lucide="chevron-right"></i>
+    </div>
+</div>
+
+<div class="game-container">
+
+    <!-- SLIDE 1: LE ORIGINI -->
+    <div class="slide" id="slide-1">
+        <div class="slide-visuals-split">
+            <div class="visual-right donna-effect"
+                style="position: relative; background-image: url('assets/gallery/donna brettia.jpeg'); width: 100%; height: 100%; background-size: contain; background-position: 75% center;">
+
+                <div class="map-pin" style="top: 50%; left: 55%; z-index: 50;"
+                    onclick="const overlay = document.getElementById('donna-brettia-overlay'); overlay.style.display = 'flex'; setTimeout(() => overlay.style.opacity = '1', 10);">
+                    <div class="pin-dot" style="transform: scale(1.5);"></div>
+                    <span class="pin-label">Zoom sulla Donna Brettia</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-overlay" style="pointer-events: none;"></div>
+
+        <div class="slide-content">
+            <h2>Ambientazione della storia</h2>
+            <h1>Consentia</h1>
+            <p>
+                Il nome deriva da una parola osco-sabellica che indica un <b>luogo di accordo</b>.
+                Capitale dei Brettii (o Bruzi), divenne nel IV secolo a.C. il cuore di un popolo fiero,
+                separatosi dai Lucani per forgiare la propria identità.
+            </p>
+            <p>
+                Cosenza vanta un mito fondativo insolito: una <b>Donna Brettia</b>. Nel 356 a.C., questa guerriera
+                eroina
+                guidò il suo popolo verso la libertà, rendendo i Bruzi padroni del proprio destino.
+            </p>
+
+            <div class="timeline-container">
+                <p style="font-size: 0.85rem; font-style: italic; color: var(--gold); margin-top: 1rem;">
+                    "...ma la Donna Brettia non è la sola ad aver segnato la storia passata di Cosenza..."
+                </p>
+
+                <div class="timeline-line">
+                    <div class="timeline-point point-brettia" data-date="356 a.C." data-label="Donna Brettia"></div>
+                    <div class="timeline-point point-zero" data-date="0" data-label=""></div>
+                    <div class="timeline-point point-alarico" data-date="410 d.C." data-label="Alarico"></div>
+                    <div class="timeline-highlight" style="width: 82%; left: 5%;"></div>
+                </div>
+
+            </div>
+
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide()">Chi era Alarico?</button>
+            </div>
+        </div>
+
+        <!-- Overlay image that covers the background to see it better (moved outside of the animated container) -->
+        <div id="donna-brettia-overlay"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; display: none; opacity: 0; transition: opacity 0.5s ease; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; backdrop-filter: blur(5px); cursor: default; flex-direction: column; gap: 1rem;">
+            <img src="assets/gallery/03.jpg"
+                style="max-width: 88%; max-height: 80%; border: 2px solid var(--gold); border-radius: 10px; box-shadow: 0 0 40px rgba(212,175,55,0.6); object-fit: contain; cursor: default;">
+            <button
+                onclick="const o=document.getElementById('donna-brettia-overlay'); o.style.opacity='0'; setTimeout(()=>o.style.display='none',500);"
+                style="padding: 0.6rem 2rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: var(--font-header); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.3s ease;"
+                onmouseover="this.style.background='var(--gold)'; this.style.color='#000';"
+                onmouseout="this.style.background='transparent'; this.style.color='var(--gold)';">
+                ✕ &nbsp;Chiudi
+            </button>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: INTRO -->
+    <div class="slide" id="slide-2" style="background-image: url('assets/gallery/bg_intro.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h2>L'Enigma del Busento</h2>
+            <h3>Il mistero del tesoro perduto</h3>
+            <p>
+                "Cupi a notte canti suonano da Cosenza sul Busento..."<br><br>
+                Da secoli, il nome di Alarico è avvolto nel mistero. Re dei Visigoti, conquistatore di Roma,
+                protagonista di una delle leggende più affascinanti del Sud Italia.
+            </p>
+            <div class="btn-container">
+                <button class="btn" onclick="nextSlide()">Inizia l'indagine</button>
+                <button class="btn secondary" onclick="showModal('poem-modal')">Approfondisci</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: IDENTITÀ -->
+    <div class="slide" id="slide-3" style="background-image: url('assets/gallery/bg_identity.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h1>La carta di identità di Alarico</h1>
+            <h2>Era veramente un barbaro spietato, o questa è una fake news?</h2>
+            <p>Nato nel 370 d.C. dalla nobile famiglia dei Balti, era un raffinato <i>Magister Militum</i> inserito
+                nel
+                mondo romano.</p>
+            <div class="interactive-grid">
+                <div class="hotspot"
+                    onclick="showFeedback('GUERRIERO', 'Alarico era un <i>Magister Militum</i>, un generale romano di origine gota. Univa la forza del guerriero alla raffinatezza del nobile.', false, 'magister militum.webp')">
+                    <div class="hotspot-icon hotspot-shield"></div>
+                </div>
+                <div class="hotspot"
+                    onclick="showFeedback('RE VISIGOTO', 'Eletto Re dal suo popolo, guidò i Visigoti nella conquista di Roma, portando con sé il tesoro imperiale. Ma dietro il sacco di Roma si nasconde una storia di giusti compensi, negati per ben tre volte all\' esercito dei Visigoti. Eppure, sarebbe bastato lo stipendio di uno solo dei seicento senatori romani come ricompensa per i servigi ricevuti. Ma la cupidigia dell\'imperatore fu tale da scatenare una furibonda reazione da parte dei soldati di Alarico, seguita da saccheggi e rapimenti. Tra gli ostaggi, anche Galla Placidia, sorella dell\'imperatore, rispettata e onorata dai Visigoti, che divenne poi imperatrice.', false, 'sacco.png')">
+                    <div class="hotspot-icon hotspot-crown"></div>
+                </div>
+                <div class="hotspot"
+                    onclick="showFeedback('IL VIAGGIO ALLA VOLTA DELL\'AFRICA', 'Il suo viaggio si concluse a Cosenza, dove il destino lo reclamò prima che potesse raggiungere l\'Africa, verso cui stava marciando, perché considerata il <i>granaio di Roma</i>, fondamentale per approvvigionare il suo popolo, ma due tentativi di traversata fallirono a causa di tempeste che distrussero la sua flotta. ', false, 'TEMPESTA.png')">
+                    <div class="hotspot-icon hotspot-map"></div>
+                </div>
+            </div>
+            <button class="btn" onclick="nextSlide()">Continua</button>
+        </div>
+    </div>
+
+
+    <!-- SLIDE 4: DESTINAZIONE CALABRIA -->
+    <div class="slide" id="slide-4" style="background-color: #0b0200;">
+        <div class="slide-overlay" style="pointer-events: none;"></div>
+
+        <div class="fullscreen-map-wrapper">
+            <div class="fullscreen-map-inner">
+                <img src="assets/gallery/viaPopilia.png" alt="Via Popilia">
+
+                <div class="map-pin roma"
+                    onclick="showFeedback('ROMA', 'La partenza dell\'ultima marcia dopo il sacco del 410 d.C.')">
+                    <span class="pin-label">ROMA</span>
+                    <div class="pin-dot"></div>
+                </div>
+                <div class="map-pin capua"
+                    onclick="showFeedback('CAPUA', 'Tappa strategica lungo la direttrice della Via Popilia.')">
+                    <span class="pin-label">CAPUA</span>
+                    <div class="pin-dot"></div>
+                </div>
+                <div class="map-pin cosenza"
+                    onclick="showFeedback('CONSENTIA', 'Il crocevia del destino, dove il Busento accoglierà il Re. Dopo aver saccheggiato Roma, nell\'agosto del 410, l\' esercito visigoto si spostò verso la Calabria, arrivando nell\'area di Cosenza. Colto dalla malattia, Alarico morì nel pieno della campagna militare, a soli 40 anni circa, probabilmente per febbre malarica. I Visigoti usavano seppellire i loro defunti nel luogo in cui morivano. Ed è per questo che la leggenda narra che fu sepolto con il suo cavallo e il suo immenso tesoro, il bottino di Roma, nel letto del fiume Busento. Fu implementata una grande opera di ingegneria idraulica, che prevedeva la deviazione del letto del fiume, per scavare la fossa funeraria. Poi, il letto del fiume fu ripristinato e le acque ripresero il loro corso naturale. Gli schiavi che furono utilizzati per scavare la tomba furono tutti uccisi, perché non rivelassero mai il segreto della sepoltura.', false, 'deviazione.png')">
+                    <span class="pin-label">CONSENTIA</span>
+                    <div class="pin-dot"></div>
+                </div>
+                <div class="map-pin reggio"
+                    onclick="showFeedback('RHEGIUM', 'L\'ultimo porto continentale prima del sogno africano, ahimè, mai raggiunto.')">
+                    <span class="pin-label">RHEGIUM</span>
+                    <div class="pin-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-content">
+            <h2>Il Viaggio</h2>
+            <h1>Destinazione Calabria</h1>
+            <p>L'ultima marcia verso il Sud. Clicca sui punti della Via Popilia per esplorare le tappe.</p>
+
+            <button class="btn" onclick="nextSlide()" style="margin-top: 1rem;">Chi ha indagato su Alarico?</button>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: DOSSIER MISTERO -->
+    <div class="slide dossier-theme" id="slide-5"
+        style="background-image: url('assets/gallery/07.jpg'); background-size: cover; background-position: center;">
+        <div class="slide-overlay"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 22%, rgba(0,0,0,0.1) 72%, rgba(0,0,0,0.72) 100%), radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.65) 100%); pointer-events: none;">
+        </div>
+
+        <div class="slide-content dossier-slide-content">
+            <h1 class="dossier-title">Chi dice la verità su Alarico?</h1>
+            <h3 class="dossier-subtitle">Mito. Dubbio. Prova.</h3>
+
+            <h2 class="dossier-phrase">
+                Tre voci raccontano il mistero.<br>
+                Solo una cerca le prove.
+            </h2>
+
+            <div class="dossier-seals-container">
+                <div class="dossier-seal" style="animation-delay: 0.2s;" onclick="showDossier('mito')">
+                    <div class="seal-ring theme-mito">
+                        <img src="assets/gallery/jordanes.png" alt="Jordanes" class="seal-img">
+                    </div>
+                    <h4>LA VOCE DEL MITO</h4>
+                    <p>Jordanes</p>
+                </div>
+
+                <div class="dossier-seal" style="animation-delay: 0.6s;" onclick="showDossier('dubbio')">
+                    <div class="seal-ring theme-dubbio">
+                        <img src="assets/gallery/olimpiodoro.png" alt="Olimpiodoro" class="seal-img">
+                    </div>
+                    <h4>LA VOCE DEL DUBBIO</h4>
+                    <p>Olimpiodoro</p>
+                </div>
+
+                <div class="dossier-seal" style="animation-delay: 1.0s;" onclick="showDossier('prova')">
+                    <div class="seal-ring theme-prova">
+                        <img src="assets/gallery/indagini.jpeg" alt="Indagini moderne" class="seal-img">
+                    </div>
+                    <h4>LA VOCE DELLA PROVA</h4>
+                    <p>Indagini moderne</p>
+                </div>
+            </div>
+            <!-- SLIDE 5: DOSSIER MISTERO 
+            <div class="dossier-narrative-line">
+                <span>Racconto</span>
+                <span class="arrow">→</span>
+                <span>Dubbio</span>
+                <span class="arrow">→</span>
+                <span>Verifica</span>
+            </div>
+        -->
+            <div class="btn-container" style="margin-top: 1rem;">
+                <button class="btn dossier-verdetto-btn" onclick="showDossier('verdetto')">EMETTI IL VERDETTO</button>
+            </div>
+
+        </div>
+
+        <div class="nav-arrows">
+            <div class="nav-arrow" onclick="prevSlide()"><i data-lucide="chevron-left"></i></div>
+            <div class="nav-arrow" onclick="nextSlide()"><i data-lucide="chevron-right"></i></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: GEOGRAFIA -->
+    <div class="slide" id="slide-6"
+        style="background-image: url('assets/gallery/11.jpg'); background-size: cover; background-position: center;">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h2>I Luoghi</h2>
+            <h1>Mappa del Mistero</h1>
+            <p>Esplora i luoghi calabresi legati alla leggenda.</p>
+
+            <div class="interactive-grid">
+                <div class="hotspot"
+                    onclick="showFeedback('COZZO ROTONDO - BISIGNANO', 'Ipotesi di struttura artificiale.', false, 'cozzorotondo.jpg')">
+                    <i data-lucide="map-pin"></i>
+                </div>
+                <div class="hotspot"
+                    onclick="showFeedback('DOMANICO', 'Territorio chiave del percorso.', false, 'domanico.jpg')">
+                    <i data-lucide="map-pin"></i>
+                </div>
+                <div class="hotspot"
+                    onclick="showFeedback('Grotte degli Alimena', 'Cavità naturali associate al passaggio dei Goti.', false, '11.jpg')">
+                    <i data-lucide="map-pin"></i>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextSlide()">Ci sei quasi!</button>
+        </div>
+        <div class="nav-arrows">
+            <div class="nav-arrow" onclick="prevSlide()"><i data-lucide="chevron-left"></i></div>
+            <div class="nav-arrow" onclick="nextSlide()"><i data-lucide="chevron-right"></i></div>
+        </div>
+    </div>
+
+
+    <!-- SLIDE 7: FINALE -->
+    <div class="slide" id="slide-7"
+        style="background-image: url('assets/gallery/bg_intro.png'); filter: hue-rotate(180deg);">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h2>Epilogo</h2>
+            <h1>Hai decodificato il mistero di Alarico</h1>
+            <p>Il vero tesoro non è fatto d'oro, ma di conoscenza.</p>
+
+            <div class="scrigno-container" onclick="revealFinalTruth()" style="align-self: center;">
+                <img src="assets/gallery/treasure_chest.png" alt="Scrigno" class="scrigno-img" id="final-scrigno"
+                    style="width: 150px;">
+            </div>
+
+            <div id="final-reveal" style="display:none; text-align: center;">
+                <h1 style="color:var(--gold-bright); font-size: 2.5rem;">MEMORIA</h1>
+                <p style="text-align: center;">Storica, Culturale, Critica.</p>
+            </div>
+
+            <div class="btn-container">
+                <!--button class="btn" onclick="restartGame()">Rigioca</button-->
+                <button class="btn secondary" onclick="nextSlide()">Backstage </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: BACKSTAGE GALLERY -->
+    <div class="slide" id="slide-8" style="background-color: #050505; justify-content: center; flex-direction: column;">
+        <div class="slide-overlay"
+            style="background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%); pointer-events: none;">
+        </div>
+
+        <div style="position: relative; z-index: 10; text-align: center; padding: 1.5rem 2rem 1rem;">
+            <h2 style="color: var(--text-muted); letter-spacing: 3px; font-size: 0.9rem;">Il progetto</h2>
+            <h1 style="color: var(--gold); font-size: 2rem; margin-bottom: 0.3rem;">Backstage</h1>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Clicca su una foto per ingrandirla</p>
+        </div>
+
+        <div class="backstage-grid" style="position: relative; z-index: 10;">
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/alarico guarda.jpeg')"
+                style="background-image: url('assets/gallery/alarico guarda.jpeg');"></button>
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/01.jpg')"
+                style="background-image: url('assets/gallery/01.jpg');"></button>
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/02.jpg')"
+                style="background-image: url('assets/gallery/02.jpg');"></button>
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/05.jpg')"
+                style="background-image: url('assets/gallery/05.jpg');"></button>
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/coccinella.jpeg')"
+                style="background-image: url('assets/gallery/coccinella.jpeg');"></button>
+            <button class="backstage-thumb" onclick="openLightbox('assets/gallery/13.jpg')"
+                style="background-image: url('assets/gallery/13.jpg');"></button>
+        </div>
+
+        <div style="position: relative; z-index: 10; margin-top: 1.5rem;">
+            <button class="btn" onclick="restartGame()">Ricomincia</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.93); z-index:99999; align-items:center; justify-content:center; cursor:zoom-out;">
+    <span
+        style="position:absolute; top:20px; right:30px; font-size:2.5rem; color:white; cursor:pointer; z-index:100000; line-height:1;"
+        onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt=""
+        style="max-width:90vw; max-height:90vh; object-fit:contain; border:1px solid var(--gold); box-shadow: 0 0 60px rgba(0,0,0,0.8); border-radius:4px;">
+</div>
+
+<!-- MODALS (Positioned relatively in CSS but placed here for structure) -->
+
+<div id="poem-modal" class="modal-overlay">
+    <div class="modal-content poem-modal"
+        style="background-image: url('assets/gallery/alarico_bg.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #000; border: 1px solid var(--gold);">
+        <div class="slide-overlay"
+            style="background: rgba(0,0,0,0.85); position: absolute; top:0; left:0; width:100%; height:100%; z-index: -1;">
+        </div>
+        <span class="close-modal" onclick="closeModal('poem-modal')">&times;</span>
+
+        <div class="scroll-indicator">
+            <p>Scorri</p>
+            <i data-lucide="chevron-down"></i>
+        </div>
+
+        <div style="max-height: 70vh; overflow-y: auto; padding-right: 15px;">
+            <div
+                style="width: 100%; max-height: 400px; overflow: hidden; margin-bottom: 2rem; border-bottom: 1px solid var(--gold); background: rgba(0,0,0,0.5); display: flex; justify-content: center;">
+                <img src="assets/gallery/Foto Alarico (9 apr 2026 alle ore 16_34)(8).jpg"
+                    style="max-width: 100%; max-height: 400px; object-fit: contain; opacity: 0.9;"
+                    alt="Alarico al Busento">
+            </div>
+            <h3 style="margin-bottom: 2rem;">Carducci e La Tomba nel Busento</h3>
+
+            <div
+                style="font-style: italic; color: var(--text-gold); line-height: 1.8; margin-bottom: 3rem; text-align: center; padding: 0 2rem;">
+                Cupi a notte canti suonano<br>
+                da Cosenza su ’l Busento,<br>
+                cupo il fiume gli rimormora<br>
+                dal suo gorgo sonnolento.<br><br>
+
+                Su e giù pe ’l fiume passano<br>
+                e ripassano ombre lente:<br>
+                Alarico i Goti piangono,<br>
+                il gran morto di lor gente.<br><br>
+
+                Ahi sí presto e da la patria<br>
+                cosí lungi avrà il riposo,<br>
+                mentre ancor bionda per gli òmeri<br>
+                va la chioma al poderoso!<br><br>
+
+                Del Busento ecco si schierano<br>
+                su le sponde i Goti a pruova,<br>
+                e dal corso usato il piegano<br>
+                dischiudendo una via nuova.<br><br>
+
+                Dove l’onde pria muggivano,<br>
+                cavan, cavano la terra;<br>
+                e profondo il corpo calano,<br>
+                a cavallo, armato in guerra.<br><br>
+
+                Lui di terra anche ricoprono<br>
+                e gli arnesi d’òr lucenti;<br>
+                de l’eroe crescan su l’umida<br>
+                fossa l’erbe de i torrenti!<br><br>
+
+                Poi, ridotto a i noti tramiti,<br>
+                il Busento lasciò l’onde<br>
+                per l’antico letto valide<br>
+                spumeggiar tra le due sponde.<br><br>
+
+                Cantò allora un coro d’uomini:<br>
+                “Dormi, o re, ne la tua gloria!<br>
+                Man romana mai non víoli<br>
+                la tua tomba e la memoria!”.<br><br>
+
+                Cantò, e lungo il canto udivasi<br>
+                per le schiere gote errare:<br>
+                recal tu, Busento rapido,<br>
+                recal tu da mare a mare.
+            </div>
+
+            <hr style="border-color: var(--gold); margin: 2rem 0; opacity: 0.3;">
+
+            <div style="text-align: justify; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                <h4 style="margin-bottom: 1rem;">Cenni Storici</h4>
+                <p style="margin-bottom: 1rem;">Questa poesia è la traduzione di un testo del poeta tedesco August
+                    von Platen dal titolo: <i>Das Grab im Busento</i>.</p>
+                <p style="margin-bottom: 1rem;">La poesia racconta la leggenda della morte di Alarico, Re dei
+                    Visigoti. Dopo il sacco di Roma nel 410, avvenuto per giustizia perché l'imperatore si rifiutava
+                    di ripagare i soldati, i Visigoti proseguirono verso l’Italia del sud, alla volta dell'Africa,<i> il
+                        granaio di Roma</i> .</p>
+                <p style="margin-bottom: 1rem;">Durante il viaggio, Alarico morì, presumibilmente per febbri
+                    malariche.</p>
+            </div>
+        </div>
+        <button class="btn" style="margin-top: 2rem;" onclick="closeModal('poem-modal')">Ritorna
+            all'Indagine</button>
+    </div>
+</div>
+
+<div id="audio-final-modal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('audio-final-modal')">&times;</span>
+        <h3>Messaggio Finale</h3>
+        <div class="audio-visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <p>"Il fiume continua a scorrere. Il mito continua a parlare."</p>
+        <button class="btn" onclick="closeModal('audio-final-modal')">Chiudi</button>
+    </div>
+</div>
+
+<div id="feedback-modal" class="modal-overlay">
+    <div class="modal-content"
+        style="display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; padding-bottom: 1.5rem;">
+        <span class="close-modal" onclick="closeModal('feedback-modal')" style="z-index: 10;">&times;</span>
+        <h3 id="feedback-title" style="margin-bottom: 1rem; flex-shrink: 0;">Dettaglio</h3>
+        <img id="feedback-img" src="" alt="Dettaglio"
+            style="display: none; flex-shrink: 0; width: 100%; max-height: 250px; object-fit: cover; object-position: top center; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--gold);">
+        <div id="feedback-scroll-zone"
+            style="overflow-y: auto; overflow-x: hidden; flex-grow: 1; margin-bottom: 1.5rem; padding-right: 10px;">
+            <p id="feedback-text" style="text-align: justify; margin-bottom: 0;"></p>
+        </div>
+        <div style="flex-shrink: 0; margin-top: auto;">
+            <button class="btn" id="feedback-btn" onclick="closeModal('feedback-modal')"
+                style="width: 100%;">Chiudi</button>
+        </div>
+    </div>
+</div>
+<!-- Custom Dossier Modal -->
+<div class="modal-overlay" id="dossier-modal">
+    <div class="modal-content dossier-modal-content" id="dossier-modal-container"
+        style="display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; padding-bottom: 2rem;">
+        <span class="close-modal dossier-close" onclick="closeModal('dossier-modal')"
+            style="z-index: 10;">&times;</span>
+        <div class="dossier-modal-icon-container" style="flex-shrink: 0;">
+            <i data-lucide="file-text" id="dossier-icon"></i>
+        </div>
+        <h1 id="dossier-title" style="flex-shrink: 0;">Titolo</h1>
+        <h3 id="dossier-subtitle" style="flex-shrink: 0;">Sottotitolo</h3>
+        <div id="dossier-scroll-zone"
+            style="overflow-y: auto; overflow-x: hidden; flex-grow: 1; padding: 1rem 10px; margin-bottom: 1rem;">
+            <div id="dossier-body">Corpo</div>
+            <div class="dossier-highlight" id="dossier-highlight" style="margin-bottom: 1rem;">
+                Frase finale
+            </div>
+        </div>
+        <div style="flex-shrink: 0; margin-top: auto;">
+            <button class="btn" style="width: 100%;" onclick="closeModal('dossier-modal')">Chiudi</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+
+</html>
