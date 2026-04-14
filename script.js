@@ -154,6 +154,24 @@ function prevSlide() {
     }
 }
 
+function goToSplash() {
+    document.querySelectorAll('.slide').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+    });
+    currentSlide = 0;
+    mainMusicStarted = false;
+    const main = document.getElementById('audio-main');
+    if (main) { main.pause(); main.currentTime = 0; }
+    const musicControl = document.getElementById('music-control');
+    if (musicControl) musicControl.style.display = 'none';
+    const splash = document.getElementById('splash-screen');
+    splash.style.opacity = '1';
+    splash.style.display = 'flex';
+    void splash.offsetWidth;
+    splash.classList.add('active');
+}
+
 function restartGame() {
     document.querySelectorAll('.slide').forEach(s => {
         s.classList.remove('active');
@@ -191,31 +209,28 @@ function layoutSpiral() {
     const cx = wW / 2;
     const cy = wH / 2;
     const CARD_W = 155;
-    const CARD_H = 140; // padding top(7) + img(108) + padding bottom(25)
+    const CARD_H = 140;
     const GOLDEN = 137.5077 * Math.PI / 180;
 
-    const all    = [...wall.querySelectorAll('.photo-card')];
-    const feat   = wall.querySelector('.photo-card-featured');
+    const all = [...wall.querySelectorAll('.photo-card')];
+    const feat = wall.querySelector('.photo-card-featured');
     const others = all.filter(c => c !== feat);
-    const N      = others.length;
+    const N = others.length;
 
-    // Elliptical expansion so spiral fills the available area
     const rX = wW * 0.40;
     const rY = wH * 0.40;
 
-    // 13.jpg al centro
     if (feat) {
         feat.style.left = (cx - CARD_W / 2) + 'px';
-        feat.style.top  = (cy - CARD_H / 2) + 'px';
+        feat.style.top = (cy - CARD_H / 2) + 'px';
     }
 
-    // Le altre a spirale con angolo aureo (non si sovrappongono mai)
     others.forEach((card, i) => {
-        const n    = i + 1;
+        const n = i + 1;
         const frac = Math.sqrt(n) / Math.sqrt(N);
-        const ang  = n * GOLDEN;
+        const ang = n * GOLDEN;
         card.style.left = (cx + rX * frac * Math.cos(ang) - CARD_W / 2) + 'px';
-        card.style.top  = (cy + rY * frac * Math.sin(ang) - CARD_H / 2) + 'px';
+        card.style.top = (cy + rY * frac * Math.sin(ang) - CARD_H / 2) + 'px';
     });
 }
 
@@ -266,6 +281,16 @@ function showModal(id) {
 function closeModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
+        if (id === 'dossier-modal') {
+            const container = document.getElementById('dossier-modal-container');
+            if (container && container.classList.contains('modal-theme-verdetto')) {
+                const btnDopoVerdetto = document.getElementById('btn-dopo-verdetto');
+                if (btnDopoVerdetto) {
+                    btnDopoVerdetto.style.display = 'block';
+                    setTimeout(() => { btnDopoVerdetto.style.opacity = '1'; }, 50);
+                }
+            }
+        }
         modal.style.display = 'none';
         const special = document.getElementById('audio-special');
         special.pause();
@@ -455,7 +480,7 @@ const dossierData = {
     dubbio: {
         title: "",
         subtitle: "",
-        body: "Una tradizione alternativa attribuita a Olimpiodoro di Tebe mette in crisi la versione più nota.<br><br>Secondo questa ipotesi, le ricchezze di Alarico non sarebbero state sepolte in Calabria. Sarebbero rimaste altrove, forse in area francese.<br><br>Se questa versione fosse vera, il mito del Busento perderebbe il suo fondamento materiale.<br>Resterebbe la leggenda. Ma non il tesoro.",
+        body: "Una tradizione alternativa attribuita a Olimpiodoro di Tebe mette in crisi la versione più nota.<br><br>Secondo questa ipotesi, le ricchezze di Alarico non sarebbero state sepolte in Calabria. Sarebbero rimaste altrove, forse in area francese. Si racconta che Ataulfo mostrò il tesoro durante il suo matrimonio con Galla Placidia.<br><br>Se questa versione fosse vera, il mito del Busento perderebbe il suo fondamento materiale.<br>Resterebbe la leggenda. Ma non il tesoro.",
         highlight: "A volte basta un dubbio per incrinare una certezza secolare.",
         icon: "book-open",
         image: "olimpiodoro.png"
@@ -518,6 +543,7 @@ function showDossier(type) {
         const scrollableZone = document.getElementById('dossier-scroll-zone');
         if (scrollableZone) scrollableZone.scrollTop = 0;
     }, 0);
+
 }
 
 /* --- LIGHTBOX --- */

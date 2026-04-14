@@ -94,6 +94,7 @@ h4 {
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 5px;
+    border-radius: 50px;
     transition: var(--transition-fast);
 }
 
@@ -217,7 +218,28 @@ h4 {
 
 .entry-content {
     text-align: center;
-    animation: fadeIn 2s ease;
+    line-height: 2;
+}
+
+.entry-content h1 {
+    opacity: 0;
+    animation: fadeIn 1.5s ease 0.3s forwards;
+}
+
+.entry-content p {
+    opacity: 0;
+    animation: fadeIn 1.5s ease 2s forwards;
+}
+
+.entry-content .majestic-btn {
+    opacity: 0;
+    animation: fadeIn 1s ease 4s forwards;
+}
+
+@keyframes diffuseIn {
+    0%   { opacity: 0; filter: blur(18px); letter-spacing: 6px; }
+    60%  { opacity: 0.8; filter: blur(4px); letter-spacing: 3px; }
+    100% { opacity: 1; filter: blur(0); letter-spacing: 1px; }
 }
 
 .entry-content p {
@@ -225,7 +247,6 @@ h4 {
     margin-bottom: 2rem;
     font-size: 1.1rem;
     font-style: italic;
-    letter-spacing: 1px;
 }
 
 .majestic-btn {
@@ -537,6 +558,12 @@ h4 {
     animation: textGlow 3.5s ease-in-out infinite;
 }
 
+/* Slide 3 – carta identità */
+#slide-3-content {
+    max-height: 98vh;
+    justify-content: flex-start;
+}
+
 /* Interactive Components */
 .interactive-grid {
     display: grid;
@@ -666,20 +693,24 @@ h4 {
 
 .btn {
     padding: 0.8rem 1.5rem;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    border: none;
+    color: var(--black);
     font-family: var(--font-header);
     font-size: 0.8rem;
+    font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     flex: 1;
+    border-radius: 50px;
+    box-shadow: 0 0 20px var(--gold-glow);
+    transition: var(--transition-medium);
 }
 
 .btn:hover {
-    background: var(--gold);
-    color: var(--bg-dark);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px var(--gold);
 }
 
 /* Modals (Fixed to not cover everything) */
@@ -1080,14 +1111,14 @@ h4 {
 }
 
 /* Slide 7: Geography Grid Adapt */
-.interactive-grid {
+#slide-6 .interactive-grid {
     display: flex;
     justify-content: center;
     gap: 3rem;
     margin-top: 2rem;
 }
 
-.hotspot {
+#slide-6 .hotspot {
     background: rgba(212, 175, 55, 0.2);
     width: 70px;
     height: 70px;
@@ -1101,12 +1132,12 @@ h4 {
     color: var(--gold);
 }
 
-.hotspot svg {
+#slide-6 .hotspot svg {
     width: 30px;
     height: 30px;
 }
 
-.hotspot:hover {
+#slide-6 .hotspot:hover {
     background: var(--gold);
     color: var(--black);
     transform: scale(1.1) translateY(-5px);
@@ -1192,7 +1223,12 @@ h4 {
 }
 
 .photo-card-featured {
+    width: 220px;
     z-index: 2;
+}
+
+.photo-card-featured img {
+    height: 158px;
 }
 
 /* Nastro adesivo — angolo alto-sinistra */
@@ -1493,6 +1529,10 @@ h4 {
     filter: sepia(0.1) contrast(1.15) brightness(1.05);
 }
 
+.dossier-seal:hover .theme-prova .seal-img {
+    filter: sepia(0.1) contrast(1.15) brightness(0.75);
+}
+
 /* Themes */
 .theme-mito {
     border-color: #B8860B; /* Bronze/dark gold */
@@ -1550,29 +1590,23 @@ h4 {
 }
 
 .dossier-verdetto-btn {
-    background: rgba(0, 0, 0, 0.72);
-    border: 2px solid #8B0000;
-    color: var(--gold);
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    border: none;
+    color: var(--black);
     padding: 1.2rem 3rem;
     font-size: 1.2rem;
-    box-shadow: 0 0 20px rgba(139, 0, 0, 0.4), inset 0 0 20px rgba(0,0,0,0.3);
-    backdrop-filter: blur(4px);
+    font-weight: bold;
+    box-shadow: 0 0 20px var(--gold-glow);
     animation: pulseGold 2s infinite alternate;
     transition:
         transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+        box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 .dossier-verdetto-btn:hover {
-    transform: scale(1.12);
-    background: #f5c800;
-    color: #000000;
-    border-color: #f5c800;
-    box-shadow:
-        0 0 30px rgba(245, 200, 0, 0.8),
-        0 0 60px rgba(245, 200, 0, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px var(--gold);
 }
 
 .slide-footer-whisper {
