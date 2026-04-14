@@ -82,7 +82,10 @@ function updateVolTooltip(input) {
 }
 
 function setMainVolume(val) {
-    document.getElementById('audio-main').volume = val;
+    const main = document.getElementById('audio-main');
+    const identity = document.getElementById('audio-identity');
+    if (main) main.volume = val;
+    if (identity) identity.volume = val;
 }
 
 function playSpecialAudio() {
@@ -347,8 +350,9 @@ function initPhraseAnimation() {
     const el = document.querySelector('.dossier-phrase');
     if (!el || el.dataset.animated) return;
     el.dataset.animated = '1';
-    el.style.transition = 'opacity 1.4s ease';
-    setTimeout(() => { el.style.opacity = '1'; }, 100);
+    setTimeout(() => {
+        el.style.animation = 'phraseTriumphal 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards';
+    }, 200);
 }
 
 // --- Modals & Feedback ---

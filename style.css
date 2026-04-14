@@ -895,6 +895,20 @@ h4 {
     width: 650px;
 }
 
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+}
+
+.scroll-arrow-icon {
+    display: block;
+    margin: 0.3rem auto 0;
+    color: var(--gold);
+    width: 22px;
+    height: 22px;
+    animation: bounceDown 1.2s ease-in-out infinite;
+}
+
 .modal-content {
     background: var(--bg-card);
     border: 1px solid var(--gold);
@@ -1657,6 +1671,45 @@ h4 {
     border-radius: 50px;
     backdrop-filter: blur(6px);
     animation: textBrilliant 2.5s ease-in-out infinite;
+}
+
+@keyframes phraseTriumphal {
+    0% {
+        opacity: 0;
+        transform: scale(0.72) translateY(28px);
+        filter: blur(14px);
+        letter-spacing: 0.25em;
+        text-shadow: none;
+    }
+    35% {
+        opacity: 0.85;
+        filter: blur(3px);
+        letter-spacing: 0.06em;
+    }
+    58% {
+        transform: scale(1.07) translateY(-5px);
+        filter: blur(0);
+        text-shadow:
+            0 0 18px rgba(255, 223, 0, 1),
+            0 0 50px rgba(212, 175, 55, 0.85),
+            0 0 90px rgba(212, 175, 55, 0.45);
+        letter-spacing: 0.02em;
+    }
+    80% {
+        transform: scale(0.97) translateY(2px);
+        text-shadow:
+            0 0 10px rgba(255, 215, 0, 0.7),
+            0 0 28px rgba(212, 175, 55, 0.45);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+        letter-spacing: normal;
+        text-shadow:
+            0 0 12px rgba(255, 215, 0, 0.55),
+            0 1px 8px rgba(0, 0, 0, 0.9);
+    }
 }
 
 .dossier-phrase {
