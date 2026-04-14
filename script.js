@@ -56,7 +56,7 @@ function toggleAudio() {
 
     if (isMuted) {
         river.play().catch(() => { });
-        if (currentSlide === 3) {
+        if (currentSlide >= 3) {
             if (identity) identity.play().catch(() => { });
         } else {
             if (main && mainMusicStarted) main.play().catch(() => { });
@@ -206,7 +206,7 @@ function showRomaFeedback() {
     setTimeout(() => {
         const btn = document.getElementById('feedback-btn');
         if (btn) {
-            btn.innerText = 'Vuoi giocare al quiz "Il Tesoro di Alarico"?';
+            btn.innerHTML = 'Vuoi giocare al quiz<br>"Il Tesoro di Alarico"?';
             btn.onclick = () => { closeModal('feedback-modal'); resetQuiz(); goToSlide(4); };
         }
     }, 0);
@@ -294,7 +294,7 @@ function initSlideAssets(slideId) {
     const main = document.getElementById('audio-main');
     const identity = document.getElementById('audio-identity');
     if (!isMuted) {
-        if (slideId === 3) {
+        if (slideId >= 3) {
             if (main) { main.pause(); }
             if (identity && identity.paused) identity.play().catch(() => { });
         } else {
@@ -322,8 +322,8 @@ function layoutSpiral() {
     const others = all.filter(c => c !== feat);
     const N = others.length;
 
-    const rX = wW * 0.40;
-    const rY = wH * 0.40;
+    const rX = wW * 0.45;
+    const rY = wH * 0.45;
 
     if (feat) {
         feat.style.left = (cx - CARD_W / 2) + 'px';
@@ -347,22 +347,8 @@ function initPhraseAnimation() {
     const el = document.querySelector('.dossier-phrase');
     if (!el || el.dataset.animated) return;
     el.dataset.animated = '1';
-
-    // Split preserving <br>
-    const parts = el.innerHTML.split(/(<br\s*\/?>)/gi);
-    let wordIndex = 0;
-    const result = parts.map(part => {
-        if (/^<br/i.test(part)) return part;
-        return part.split(/(\s+)/).map(token => {
-            if (!token.trim()) return token;
-            const delay = (wordIndex * 0.28).toFixed(2);
-            wordIndex++;
-            return `<span class="phrase-word" style="animation-delay:${delay}s">${token}</span>`;
-        }).join('');
-    }).join('');
-
-    el.innerHTML = result;
-    el.style.opacity = '1';
+    el.style.transition = 'opacity 1.4s ease';
+    setTimeout(() => { el.style.opacity = '1'; }, 100);
 }
 
 // --- Modals & Feedback ---
