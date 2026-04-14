@@ -1676,30 +1676,13 @@ h4 {
 @keyframes phraseTriumphal {
     0% {
         opacity: 0;
-        transform: scale(0.72) translateY(28px);
-        filter: blur(14px);
-        letter-spacing: 0.25em;
+        transform: translateY(14px);
+        filter: blur(6px);
         text-shadow: none;
     }
-    35% {
+    60% {
         opacity: 0.85;
-        filter: blur(3px);
-        letter-spacing: 0.06em;
-    }
-    58% {
-        transform: scale(1.07) translateY(-5px);
-        filter: blur(0);
-        text-shadow:
-            0 0 18px rgba(255, 223, 0, 1),
-            0 0 50px rgba(212, 175, 55, 0.85),
-            0 0 90px rgba(212, 175, 55, 0.45);
-        letter-spacing: 0.02em;
-    }
-    80% {
-        transform: scale(0.97) translateY(2px);
-        text-shadow:
-            0 0 10px rgba(255, 215, 0, 0.7),
-            0 0 28px rgba(212, 175, 55, 0.45);
+        filter: blur(1px);
     }
     100% {
         opacity: 1;
@@ -1707,18 +1690,38 @@ h4 {
         filter: blur(0);
         letter-spacing: normal;
         text-shadow:
-            0 0 12px rgba(255, 215, 0, 0.55),
-            0 1px 8px rgba(0, 0, 0, 0.9);
+            -1px -1px 0 #000, 1px -1px 0 #000,
+            -1px  1px 0 #000, 1px  1px 0 #000,
+            0 0 20px rgba(255, 230, 0, 0.9),
+            0 0 45px rgba(212, 175, 55, 0.6);
+    }
+}
+
+@keyframes glowTextPhrase {
+    from {
+        text-shadow:
+            -1px -1px 0 #000, 1px -1px 0 #000,
+            -1px  1px 0 #000, 1px  1px 0 #000,
+            0 0 10px rgba(255, 220, 0, 0.6),
+            0 0 24px rgba(212, 175, 55, 0.35);
+    }
+    to {
+        text-shadow:
+            -1px -1px 0 #000, 1px -1px 0 #000,
+            -1px  1px 0 #000, 1px  1px 0 #000,
+            0 0 22px rgba(255, 230, 0, 1),
+            0 0 50px rgba(212, 175, 55, 0.75),
+            0 0 80px rgba(212, 175, 55, 0.35);
     }
 }
 
 .dossier-phrase {
-    color: #FFD700;
-    font-size: 1.35rem;
+    color: #FFE500;
+    font-size: 1.5rem;
     text-align: center;
     line-height: 1.7;
     font-style: italic;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 1.8rem;
     background: none;
     padding: 0;
@@ -1726,7 +1729,11 @@ h4 {
     backdrop-filter: none;
     opacity: 0;
     animation: none;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+    -webkit-text-stroke: 0.5px rgba(200, 140, 0, 0.7);
+    text-shadow:
+        -1px -1px 0 #000, 1px -1px 0 #000,
+        -1px  1px 0 #000, 1px  1px 0 #000,
+        0 0 14px rgba(255, 220, 0, 0.8);
 }
 
 .dossier-seals-container {

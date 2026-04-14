@@ -358,10 +358,10 @@ function initPhraseAnimation() {
     if (!el || el.dataset.animated) return;
     el.dataset.animated = '1';
     setTimeout(() => {
-        el.style.animation = 'phraseTriumphal 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards';
+        el.style.animation = 'phraseTriumphal 3s ease-out forwards';
         el.addEventListener('animationend', () => {
             el.style.opacity = '1';
-            el.style.animation = 'glowText 2s infinite alternate';
+            el.style.animation = 'glowTextPhrase 2s infinite alternate';
         }, { once: true });
     }, 200);
 }
