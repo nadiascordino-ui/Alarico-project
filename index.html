@@ -20,7 +20,8 @@
 <div id="entry-overlay">
     <div class="entry-content">
         <h1 class="glow-text">La storia di Alarico, re dei Visigoti</h1>
-        <p>Un viaggio immersivo tra i luoghi di Alarico, dove il passato rivive grazie alla tecnologia</p>
+        <p>Scoprire il territorio, rivivere la storia: con l'IA, e non solo, proviamo a verificare il mistero del suo
+            tesoro.</p>
         <button class="btn majestic-btn" onclick="enterExperience()">Sei pronto a scoprire la verità?</button>
     </div>
 </div>
@@ -32,17 +33,25 @@
 
 <audio id="audio-main" src="assets/gallery/bg_main.mp3" loop></audio>
 <audio id="audio-special" src="assets/gallery/bg_special.mp3"></audio>
+<audio id="audio-identity" src="assets/gallery/Honor Him.mp3" loop></audio>
 <audio id="audio-voce-finale" src="assets/gallery/vocefinale.mp3"></audio>
 
 <div class="audio-controls-panel" id="audio-panel" style="display: none;">
     <div class="audio-track-control" id="river-control">
         <i data-lucide="waves" class="track-icon" title="Volume Fiume"></i>
-        <input type="range" id="volume-river" min="0" max="1" step="0.1" value="0.2"
-            oninput="setRiverVolume(this.value)">
+        <div class="vol-slider-wrap">
+            <input type="range" id="volume-river" min="0" max="1" step="0.1" value="0.5"
+                oninput="setRiverVolume(this.value); updateVolTooltip(this)">
+            <span class="vol-tooltip">50%</span>
+        </div>
     </div>
     <div class="audio-track-control" id="music-control">
         <i data-lucide="music" class="track-icon" title="Volume Musica"></i>
-        <input type="range" id="volume-main" min="0" max="1" step="0.1" value="0.3" oninput="setMainVolume(this.value)">
+        <div class="vol-slider-wrap">
+            <input type="range" id="volume-main" min="0" max="1" step="0.1" value="0.3"
+                oninput="setMainVolume(this.value); updateVolTooltip(this)">
+            <span class="vol-tooltip">30%</span>
+        </div>
     </div>
     <div id="audio-toggle" class="audio-btn master-mute" onclick="toggleAudio()" title="Muto Master">
         <i data-lucide="volume-2"></i>
@@ -66,7 +75,7 @@
             <div class="visual-right donna-effect"
                 style="position: relative; background-image: url('assets/gallery/donna brettia.jpeg'); width: 100%; height: 100%; background-size: contain; background-position: 75% center;">
 
-                <div class="map-pin" style="top: 50%; left: 55%; z-index: 50;"
+                <div class="map-pin" style="top: 58%; left: 50%; z-index: 50;"
                     onclick="const overlay = document.getElementById('donna-brettia-overlay'); overlay.style.display = 'flex'; setTimeout(() => overlay.style.opacity = '1', 10);">
                     <div class="pin-dot" style="transform: scale(1.5);"></div>
                     <span class="pin-label">Zoom sulla Donna Brettia</span>
@@ -130,7 +139,7 @@
             <h2>L'Enigma del Busento</h2>
             <h3>Il mistero del tesoro perduto</h3>
             <p>
-                "Cupi a notte canti suonano da Cosenza sul Busento..."<br><br>
+                <em>"Cupi a notte canti suonano da Cosenza sul Busento..."</em><br><br>
                 Da secoli, il nome di Alarico è avvolto nel mistero. Re dei Visigoti, conquistatore di Roma,
                 protagonista di una delle leggende più affascinanti del Sud Italia.
             </p>
@@ -145,7 +154,8 @@
     <div class="slide" id="slide-3" style="background-image: url('assets/gallery/bg_identity.png')">
         <div class="slide-overlay"></div>
         <div class="slide-content" id="slide-3-content">
-            <img src="assets/gallery/ciAlarico.png" alt="Carta di identità di Alarico" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; object-fit: contain;">
+            <img src="assets/gallery/ciAlarico.png" alt="Carta di identità di Alarico"
+                style="border-radius: 4px; object-fit: contain;">
             <h1>La carta di identità di Alarico</h1>
             <h2>Era veramente un barbaro spietato, o questa è una fake news?</h2>
             <div class="interactive-grid">
@@ -154,29 +164,64 @@
                     <div class="hotspot-icon hotspot-shield"></div>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('RE VISIGOTO', 'Eletto Re dal suo popolo, guidò i Visigoti nella conquista di Roma, portando con sé il tesoro imperiale. Ma dietro il sacco di Roma si nasconde una storia di giusti compensi, negati per ben tre volte all\' esercito dei Visigoti. Eppure, sarebbe bastato lo stipendio di uno solo dei seicento senatori romani come ricompensa per i servigi ricevuti. Ma la cupidigia dell\'imperatore fu tale da scatenare una furibonda reazione da parte dei soldati di Alarico, seguita da saccheggi e rapimenti. Tra gli ostaggi, anche Galla Placidia, sorella dell\'imperatore, rispettata e onorata dai Visigoti, che divenne poi imperatrice.', false, 'sacco.png')">
+                    onclick="showFeedback('RE VISIGOTO', 'Eletto Re dal suo popolo, guidò i Visigoti nella conquista di Roma, portando con sé il tesoro imperiale. Ma, dietro il sacco di Roma, si nasconde una storia di giusti compensi, negati per ben tre volte all\' esercito dei Visigoti. Eppure, sarebbe bastato lo stipendio di uno solo dei seicento senatori romani come ricompensa per i servigi ricevuti. Tuttavia, la cupidigia dell\'imperatore fu tale da scatenare una furibonda reazione da parte dei soldati di Alarico, seguita da saccheggi e rapimenti. Tra gli ostaggi, anche Galla Placidia, sorella dell\'imperatore, rispettata e onorata dai Visigoti, che ebbero anche ordine di non distruggere chiese e templi. Galla Placidia divenne poi imperatrice.', false, 'sacco.png')">
                     <div class="hotspot-icon hotspot-crown"></div>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('IL VIAGGIO ALLA VOLTA DELL\'AFRICA', 'Il suo viaggio si concluse a Cosenza, dove il destino lo reclamò prima che potesse raggiungere l\'Africa, verso cui stava marciando, perché considerata il <i>granaio di Roma</i>, fondamentale per approvvigionare il suo popolo, ma due tentativi di traversata fallirono a causa di tempeste che distrussero la sua flotta. ', false, 'TEMPESTA.png')">
+                    onclick="showFeedback('IL VIAGGIO ALLA VOLTA DELL\'AFRICA', 'Il suo viaggio si concluse a Cosenza, dove il destino lo reclamò prima che potesse raggiungere l\'Africa, verso cui stava marciando, perché considerata il <i>granaio di Roma</i>, fondamentale per approvvigionare il suo popolo. Già due tentativi di traversata erano andati falliti, a causa di tempeste che distrussero la sua flotta. ', false, 'TEMPESTA.png')">
                     <div class="hotspot-icon hotspot-map"></div>
                 </div>
             </div>
-            <button class="btn" onclick="nextSlide()">Continua</button>
+            <button class="btn" onclick="goToSlide(5)">Continua</button>
         </div>
     </div>
 
 
-    <!-- SLIDE 4: DESTINAZIONE CALABRIA -->
-    <div class="slide" id="slide-4" style="background-color: #0b0200;">
+    <!-- SLIDE 4: QUIZ INTERATTIVO -->
+    <div class="slide quiz-parchment-slide" id="slide-4"
+        style="background-image: url('assets/gallery/pergamena.png'); background-size: 100% 100%; background-position: center; flex-direction: column; justify-content: space-between; padding: 0;">
+        <div class="slide-overlay" style="pointer-events: none; background: rgba(180,130,50,0.12);"></div>
+
+        <div class="quiz-top-area">
+            <h1 class="quiz-question">
+                Cosa si pensa ci fosse,<br>
+                oltre all'oro e all'argento,<br>
+                nel bottino del<br>
+                <strong>TESORO DI ALARICO</strong>
+            </h1>
+            <p id="quiz-feedback-msg" class="quiz-feedback-msg" style="display:none;"></p>
+        </div>
+
+        <div class="quiz-bottom-area">
+            <div class="quiz-options" id="quiz-options">
+                <button class="quiz-btn" data-correct="false" onclick="quizAnswer(this)">
+                    La Lancia di Longino, che trafisse il costato di Cristo
+                </button>
+                <button class="quiz-btn" data-correct="true" onclick="quizAnswer(this)">
+                    Il Sacro Graal, coppa usata da Gesù nell'Ultima Cena
+                </button>
+                <button class="quiz-btn" data-correct="false" onclick="quizAnswer(this)">
+                    L'Arca dell'Alleanza, rubata dal Tempio di Gerusalemme
+                </button>
+                <button class="quiz-btn" data-correct="false" onclick="quizAnswer(this)">
+                    Le Tavole della Legge consegnate a Mosè sul Sinai
+                </button>
+            </div>
+            <button class="btn" id="quiz-continue-btn" onclick="goToSlide(5)"
+                style="display:none; margin: 0.8rem auto; max-width: 300px;">Continua il viaggio</button>
+        </div>
+    </div>
+
+
+    <!-- SLIDE 5: DESTINAZIONE CALABRIA -->
+    <div class="slide" id="slide-5" style="background-color: #0b0200;">
         <div class="slide-overlay" style="pointer-events: none;"></div>
 
         <div class="fullscreen-map-wrapper">
             <div class="fullscreen-map-inner">
                 <img src="assets/gallery/viaPopilia.png" alt="Via Popilia">
 
-                <div class="map-pin roma"
-                    onclick="showFeedback('ROMA', 'La partenza dell\'ultima marcia dopo il sacco del 410 d.C.')">
+                <div class="map-pin roma" onclick="showRomaFeedback()">
                     <span class="pin-label">ROMA</span>
                     <div class="pin-dot"></div>
                 </div>
@@ -209,7 +254,7 @@
     </div>
 
     <!-- SLIDE 5: DOSSIER MISTERO -->
-    <div class="slide dossier-theme" id="slide-5"
+    <div class="slide dossier-theme" id="slide-6"
         style="background-image: url('assets/gallery/07.jpg'); background-size: cover; background-position: center;">
         <div class="slide-overlay"
             style="background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 22%, rgba(0,0,0,0.1) 72%, rgba(0,0,0,0.72) 100%), radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.65) 100%); pointer-events: none;">
@@ -260,7 +305,8 @@
         -->
             <div class="btn-container" style="margin-top: 1rem; flex-direction: column; gap: 0.7rem;">
                 <button class="btn dossier-verdetto-btn" onclick="showDossier('verdetto')">EMETTI IL VERDETTO</button>
-                <button id="btn-dopo-verdetto" class="btn" onclick="nextSlide()" style="display:none; opacity:0; transition: opacity 0.6s ease;">Prosegui il viaggio</button>
+                <button id="btn-dopo-verdetto" class="btn" onclick="nextSlide()"
+                    style="display:none; opacity:0; transition: opacity 0.6s ease;">Prosegui il viaggio</button>
             </div>
 
         </div>
@@ -272,7 +318,7 @@
     </div>
 
     <!-- SLIDE 6: GEOGRAFIA -->
-    <div class="slide" id="slide-6"
+    <div class="slide" id="slide-7"
         style="background-image: url('assets/gallery/11.jpg'); background-size: cover; background-position: center;">
         <div class="slide-overlay"></div>
         <div class="slide-content">
@@ -304,8 +350,8 @@
     </div>
 
 
-    <!-- SLIDE 7: FINALE -->
-    <div class="slide" id="slide-7"
+    <!-- SLIDE 8: FINALE -->
+    <div class="slide" id="slide-8"
         style="background-image: url('assets/gallery/bg_intro.png'); filter: hue-rotate(180deg);">
         <div class="slide-overlay"></div>
         <div class="slide-content">
@@ -330,15 +376,16 @@
         </div>
     </div>
 
-    <!-- SLIDE 8: BACKSTAGE GALLERY -->
-    <div class="slide" id="slide-8" style="background-color: #050505; justify-content: center; flex-direction: column;">
+    <!-- SLIDE 9: BACKSTAGE GALLERY -->
+    <div class="slide" id="slide-9" style="background-color: #050505; justify-content: center; flex-direction: column;">
         <div class="slide-overlay"
             style="background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%); pointer-events: none;">
         </div>
 
-        <div style="position: absolute; top: 12px; left: 0; right: 0; z-index: 20; text-align: center; padding: 0 2rem; pointer-events: none;">
-            <h1 style="color: var(--gold); font-size: clamp(0.85rem, 1.5vw, 1.3rem); margin-bottom: 0.15rem; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.95);">Non solo un progetto, ma un viaggio insieme nei luoghi di Alarico</h1>
-            <p style="color: rgba(255,255,255,0.55); font-size: 0.8rem; text-shadow: 0 1px 6px rgba(0,0,0,0.9);">Clicca su una foto per ingrandirla</p>
+        <div
+            style="position: absolute; top: 12px; left: 0; right: 0; z-index: 20; text-align: center; padding: 0 2rem; pointer-events: none;">
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.8rem; text-shadow: 0 1px 6px rgba(0,0,0,0.9);">Clicca
+                su una foto per ingrandirla</p>
         </div>
 
         <div class="photo-wall">
@@ -360,8 +407,8 @@
             <div class="photo-card" onclick="openLightbox('assets/gallery/01.jpg')">
                 <img src="assets/gallery/01.jpg" alt="Backstage">
             </div>
-            <div class="photo-card photo-card-featured" onclick="openLightbox('assets/gallery/13.jpg')">
-                <img src="assets/gallery/13.jpg" alt="ALARICO — scritta sul Busento">
+            <div class="photo-card photo-card-featured" onclick="openLightbox('assets/gallery/04.jpg')">
+                <img src="assets/gallery/04.jpg" alt="Backstage">
             </div>
             <div class="photo-card" onclick="openLightbox('assets/gallery/28.jpg')">
                 <img src="assets/gallery/28.jpg" alt="Backstage">
@@ -384,6 +431,33 @@
             <div class="photo-card" onclick="openLightbox('assets/gallery/27.png')">
                 <img src="assets/gallery/27.png" alt="Backstage">
             </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/31.jpeg')">
+                <img src="assets/gallery/31.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/32.jpeg')">
+                <img src="assets/gallery/32.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/33.jpeg')">
+                <img src="assets/gallery/33.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/34.jpeg')">
+                <img src="assets/gallery/34.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/35.jpeg')">
+                <img src="assets/gallery/35.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/36.jpeg')">
+                <img src="assets/gallery/36.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/37.jpeg')">
+                <img src="assets/gallery/37.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/38.jpeg')">
+                <img src="assets/gallery/38.jpeg" alt="Backstage">
+            </div>
+            <div class="photo-card" onclick="openLightbox('assets/gallery/39.jpeg')">
+                <img src="assets/gallery/39.jpeg" alt="Backstage">
+            </div>
         </div>
 
         <div style="position: absolute; bottom: 14px; left: 0; right: 0; z-index: 20; text-align: center;">
@@ -391,6 +465,43 @@
         </div>
     </div>
 
+</div>
+
+<!-- GRAAL OVERLAY -->
+<div id="graal-overlay"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:99990; background-image:url('assets/gallery/sacro Graal.png'); background-size:cover; background-position:center; align-items:center; justify-content:center; flex-direction:column;">
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.35);"></div>
+    <button id="graal-btn" class="graal-pulse-btn" onclick="showGraalText()"
+        style="position:absolute; left:46%; top:53%; transform:translate(-50%,-50%);"></button>
+    <div id="graal-text-box"
+        style="display:none; position:relative; z-index:2; max-width:600px; background:rgba(0,0,0,0.82); border:1px solid var(--gold); border-radius:10px; padding:2rem; text-align:center; color:#f5e6c8; font-size:1.05rem; line-height:1.8;">
+        <p>I tesori del Tempio di Gerusalemme — saccheggiati da Tito nel 70 d.C. e portati a Roma — finirono nel bottino
+            di Alarico dopo il sacco del 410 d.C. Tra questi, secondo la leggenda, vi era il <strong>Sacro
+                Graal</strong>: la coppa usata da Gesù nell'Ultima Cena, simbolo del potere sacro dei Visigoti. Si stima
+            che ci fossero circa 25 tonnellate di oro e 150 tonnellate di argento.</p>
+        <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.2rem; flex-wrap:wrap;">
+            <button class="btn" onclick="openGraalSub('oro')">A quanto equivalgono 25 tonnellate d'oro?</button>
+            <button class="btn" onclick="openGraalSub('argento')">A quanto equivalgono 150 tonnellate
+                d'argento?</button>
+        </div>
+        <button class="btn" onclick="closeGraalOverlay()" style="margin-top:1.2rem;">Chiudi</button>
+    </div>
+</div>
+
+<!-- Sub-overlay ORO -->
+<div id="graal-sub-oro"
+    style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:99995; width:90%; max-width:600px; background:#0a0a0a; border:1px solid var(--gold); border-radius:10px; padding:2rem; flex-direction:column; align-items:center; gap:1.2rem;">
+    <img src="assets/gallery/oro.png"
+        style="width:100%; max-height:300px; object-fit:contain; border-radius:8px; border:1px solid var(--gold); box-shadow:0 0 30px rgba(212,175,55,0.4);">
+    <button class="btn" onclick="closeGraalSub('oro')" style="width:100%;">Chiudi</button>
+</div>
+
+<!-- Sub-overlay ARGENTO -->
+<div id="graal-sub-argento"
+    style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:99995; width:90%; max-width:600px; background:#0a0a0a; border:1px solid #aaa; border-radius:10px; padding:2rem; flex-direction:column; align-items:center; gap:1.2rem;">
+    <img src="assets/gallery/argento.png"
+        style="width:100%; max-height:300px; object-fit:contain; border-radius:8px; border:1px solid #aaa; box-shadow:0 0 30px rgba(180,180,180,0.3);">
+    <button class="btn" onclick="closeGraalSub('argento')" style="width:100%;">Chiudi</button>
 </div>
 
 <!-- Lightbox -->
@@ -411,11 +522,8 @@
         <div class="slide-overlay"
             style="background: rgba(0,0,0,0.85); position: absolute; top:0; left:0; width:100%; height:100%; z-index: -1;">
         </div>
-        <span class="close-modal" onclick="closeModal('poem-modal')">&times;</span>
-
         <div class="scroll-indicator">
             <p>Scorri</p>
-            <i data-lucide="chevron-down"></i>
         </div>
 
         <div style="max-height: 70vh; overflow-y: auto; padding-right: 15px;">
@@ -483,8 +591,8 @@
                     von Platen dal titolo: <i>Das Grab im Busento</i>.</p>
                 <p style="margin-bottom: 1rem;">La poesia racconta la leggenda della morte di Alarico, Re dei
                     Visigoti. Dopo il sacco di Roma nel 410, avvenuto per giustizia perché l'imperatore si rifiutava
-                    di ripagare i soldati, i Visigoti proseguirono verso l’Italia del sud, alla volta dell'Africa,<i> il
-                        granaio di Roma</i> .</p>
+                    di ripagare i soldati, i Visigoti proseguirono verso l’Italia del sud, alla volta dell’Africa, <i>il
+                        granaio di Roma</i>.</p>
                 <p style="margin-bottom: 1rem;">Durante il viaggio, Alarico morì, presumibilmente per febbri
                     malariche.</p>
             </div>
@@ -511,20 +619,13 @@
 
 <div id="feedback-modal" class="modal-overlay">
     <div class="modal-content"
-        style="display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; padding-bottom: 1.5rem;">
-        <span class="close-modal" onclick="closeModal('feedback-modal')" style="z-index: 10;">&times;</span>
-        <h3 id="feedback-title" style="margin-bottom: 1rem; flex-shrink: 0;">Dettaglio</h3>
-        <img id="feedback-img" src="" alt="Dettaglio"
-            onclick="openLightbox(this.src)"
-            style="display: none; flex-shrink: 0; width: 100%; max-height: 220px; object-fit: contain; object-position: center; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--gold); cursor: zoom-in;">
-        <div id="feedback-scroll-zone"
-            style="overflow-y: auto; overflow-x: hidden; flex-grow: 1; margin-bottom: 1.5rem; padding-right: 10px;">
-            <p id="feedback-text" style="text-align: justify; margin-bottom: 0;"></p>
-        </div>
-        <div style="flex-shrink: 0; margin-top: auto;">
-            <button class="btn" id="feedback-btn" onclick="closeModal('feedback-modal')"
-                style="width: 100%;">Chiudi</button>
-        </div>
+        style="display: flex; flex-direction: column; max-height: 92vh; overflow-y: auto; overflow-x: hidden; padding-bottom: 1.5rem;">
+        <h3 id="feedback-title" style="margin-bottom: 1rem;">Dettaglio</h3>
+        <img id="feedback-img" src="" alt="Dettaglio" onclick="openLightbox(this.src)"
+            style="display: none; width: 100%; max-height: 220px; object-fit: contain; object-position: center; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--gold); cursor: zoom-in;">
+        <p id="feedback-text" style="text-align: justify; margin-bottom: 1.5rem;"></p>
+        <button class="btn" id="feedback-btn" onclick="closeModal('feedback-modal')"
+            style="width: 100%;">Chiudi</button>
     </div>
 </div>
 <!-- Custom Dossier Modal -->

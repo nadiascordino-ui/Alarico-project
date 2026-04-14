@@ -51,16 +51,22 @@ function startGame() {
 function toggleAudio() {
     const main = document.getElementById('audio-main');
     const river = document.getElementById('audio-river');
+    const identity = document.getElementById('audio-identity');
     const toggle = document.getElementById('audio-toggle');
 
     if (isMuted) {
-        if (!main.paused || mainMusicStarted) main.play().catch(e => { });
-        river.play().catch(e => { });
+        river.play().catch(() => { });
+        if (currentSlide === 3) {
+            if (identity) identity.play().catch(() => { });
+        } else {
+            if (main && mainMusicStarted) main.play().catch(() => { });
+        }
         toggle.classList.remove('muted');
         isMuted = false;
     } else {
         main.pause();
         river.pause();
+        if (identity) identity.pause();
         toggle.classList.add('muted');
         isMuted = true;
     }
@@ -68,6 +74,11 @@ function toggleAudio() {
 
 function setRiverVolume(val) {
     document.getElementById('audio-river').volume = val;
+}
+
+function updateVolTooltip(input) {
+    const tooltip = input.parentElement.querySelector('.vol-tooltip');
+    if (tooltip) tooltip.textContent = Math.round(input.value * 100) + '%';
 }
 
 function setMainVolume(val) {
@@ -139,6 +150,12 @@ function prevSlide() {
     const musicControl = document.getElementById('music-control');
     if (currentSlide < 1) {
         if (musicControl) musicControl.style.display = 'none';
+        // Tornati alla splash: muta bg_main, lascia solo il fiume
+        const main = document.getElementById('audio-main');
+        if (main) { main.pause(); main.currentTime = 0; }
+        const identity = document.getElementById('audio-identity');
+        if (identity) { identity.pause(); identity.currentTime = 0; }
+        mainMusicStarted = false;
     } else {
         if (musicControl) musicControl.style.display = 'flex';
     }
@@ -154,6 +171,47 @@ function prevSlide() {
     }
 }
 
+function goToSlide(n) {
+    const current = (currentSlide === 0)
+        ? document.getElementById('splash-screen')
+        : document.getElementById(`slide-${currentSlide}`);
+    if (current) {
+        current.classList.remove('active');
+        if (currentSlide === 0) current.style.opacity = '0';
+        setTimeout(() => { if (!current.classList.contains('active')) current.style.display = 'none'; }, 800);
+    }
+    currentSlide = n;
+    const target = document.getElementById(`slide-${currentSlide}`);
+    if (target) {
+        target.style.display = 'flex';
+        void target.offsetWidth;
+        target.classList.add('active');
+        initSlideAssets(currentSlide);
+    }
+}
+
+function resetQuiz() {
+    document.querySelectorAll('#quiz-options .quiz-btn').forEach(b => {
+        b.disabled = false;
+        b.classList.remove('quiz-correct', 'quiz-wrong-sel');
+    });
+    const msg = document.getElementById('quiz-feedback-msg');
+    if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
+    const continueBtn = document.getElementById('quiz-continue-btn');
+    if (continueBtn) continueBtn.style.display = 'none';
+}
+
+function showRomaFeedback() {
+    showFeedback('ROMA', 'La partenza dell\'ultima marcia dopo il sacco del 410 d.C. Alarico portava con sé non solo oro e argento, ma forse qualcosa di molto più prezioso e misterioso...', false, null);
+    setTimeout(() => {
+        const btn = document.getElementById('feedback-btn');
+        if (btn) {
+            btn.innerText = 'Vuoi giocare al quiz "Il Tesoro di Alarico"?';
+            btn.onclick = () => { closeModal('feedback-modal'); resetQuiz(); goToSlide(4); };
+        }
+    }, 0);
+}
+
 function goToSplash() {
     document.querySelectorAll('.slide').forEach(s => {
         s.classList.remove('active');
@@ -163,6 +221,8 @@ function goToSplash() {
     mainMusicStarted = false;
     const main = document.getElementById('audio-main');
     if (main) { main.pause(); main.currentTime = 0; }
+    const identity = document.getElementById('audio-identity');
+    if (identity) { identity.pause(); identity.currentTime = 0; }
     const musicControl = document.getElementById('music-control');
     if (musicControl) musicControl.style.display = 'none';
     const splash = document.getElementById('splash-screen');
@@ -178,6 +238,11 @@ function restartGame() {
         s.style.display = 'none';
     });
 
+    const identity = document.getElementById('audio-identity');
+    if (identity) { identity.pause(); identity.currentTime = 0; }
+    const main = document.getElementById('audio-main');
+    if (main && !isMuted) { main.currentTime = 0; main.play().catch(() => { }); }
+
     currentSlide = 1;
     const first = document.getElementById('slide-1');
     first.style.display = 'flex';
@@ -192,15 +257,55 @@ function restartGame() {
     if (cart) cart.innerHTML = '<span>Trascina gli oggetti qui</span>';
 }
 
+/* --- Quiz Slide 4 --- */
+function quizAnswer(btn) {
+    if (btn.disabled) return;
+    const isCorrect = btn.dataset.correct === 'true';
+    const msg = document.getElementById('quiz-feedback-msg');
+
+    if (isCorrect) {
+        btn.classList.add('quiz-correct');
+        btn.disabled = true;
+        if (msg) { msg.textContent = '✓ Risposta corretta!'; msg.style.display = 'block'; msg.style.color = '#145a28'; }
+        setTimeout(() => {
+            openGraalOverlay();
+            const continueBtn = document.getElementById('quiz-continue-btn');
+            if (continueBtn) continueBtn.style.display = 'block';
+        }, 600);
+    } else {
+        btn.disabled = true;
+        btn.classList.add('quiz-wrong-sel');
+        if (msg) { msg.textContent = '✗ Non è corretto, riprova!'; msg.style.display = 'block'; msg.style.color = '#7b0000'; }
+        setTimeout(() => {
+            btn.classList.remove('quiz-wrong-sel');
+            btn.disabled = false;
+            if (msg) msg.style.display = 'none';
+        }, 900);
+    }
+}
+
 function initSlideAssets(slideId) {
-    if (slideId === 4) setupDragAndDrop();
-    if (slideId === 5) initPhraseAnimation();
-    if (slideId === 8) layoutSpiral();
+    if (slideId === 4) resetQuiz();
+    if (slideId === 5) setupDragAndDrop();
+    if (slideId === 6) initPhraseAnimation();
+    if (slideId === 9) layoutSpiral();
     if (window.lucide) window.lucide.createIcons();
+
+    const main = document.getElementById('audio-main');
+    const identity = document.getElementById('audio-identity');
+    if (!isMuted) {
+        if (slideId === 3) {
+            if (main) { main.pause(); }
+            if (identity && identity.paused) identity.play().catch(() => { });
+        } else {
+            if (identity) { identity.pause(); identity.currentTime = 0; }
+            if (main && main.paused && mainMusicStarted) main.play().catch(() => { });
+        }
+    }
 }
 
 function layoutSpiral() {
-    const wall = document.querySelector('#slide-8 .photo-wall');
+    const wall = document.querySelector('#slide-9 .photo-wall');
     if (!wall) return;
     const wW = wall.offsetWidth;
     const wH = wall.offsetHeight;
@@ -235,7 +340,7 @@ function layoutSpiral() {
 }
 
 window.addEventListener('resize', () => {
-    if (currentSlide === 8) layoutSpiral();
+    if (currentSlide === 9) layoutSpiral();
 });
 
 function initPhraseAnimation() {
@@ -276,6 +381,33 @@ function showModal(id) {
             playSpecialAudio();
         }
     }
+}
+
+function openGraalOverlay() {
+    const overlay = document.getElementById('graal-overlay');
+    if (!overlay) return;
+    overlay.style.display = 'flex';
+    document.getElementById('graal-btn').style.display = 'block';
+    document.getElementById('graal-text-box').style.display = 'none';
+}
+
+function showGraalText() {
+    document.getElementById('graal-btn').style.display = 'none';
+    document.getElementById('graal-text-box').style.display = 'block';
+}
+
+function closeGraalOverlay() {
+    document.getElementById('graal-overlay').style.display = 'none';
+}
+
+function openGraalSub(type) {
+    document.getElementById('graal-sub-oro').style.display = 'none';
+    document.getElementById('graal-sub-argento').style.display = 'none';
+    document.getElementById('graal-sub-' + type).style.display = 'flex';
+}
+
+function closeGraalSub(type) {
+    document.getElementById('graal-sub-' + type).style.display = 'none';
 }
 
 function closeModal(id) {
