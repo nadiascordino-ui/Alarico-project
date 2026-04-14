@@ -6,6 +6,7 @@ let currentSlide = 0; // 0 = Splash Screen
 let selectedQuizOption = null;
 let isMuted = false;
 let mainMusicStarted = false;
+let identityStarted = false;
 
 // --- Entry Logic ---
 
@@ -57,7 +58,7 @@ function toggleAudio() {
     if (isMuted) {
         river.play().catch(() => { });
         if (currentSlide >= 3) {
-            if (identity) identity.play().catch(() => { });
+            if (identity) { identity.play().catch(() => { }); identityStarted = true; }
         } else {
             if (main && mainMusicStarted) main.play().catch(() => { });
         }
@@ -66,7 +67,7 @@ function toggleAudio() {
     } else {
         main.pause();
         river.pause();
-        if (identity) identity.pause();
+        if (identity) { identity.pause(); identityStarted = false; }
         toggle.classList.add('muted');
         isMuted = true;
     }
@@ -159,6 +160,7 @@ function prevSlide() {
         const identity = document.getElementById('audio-identity');
         if (identity) { identity.pause(); identity.currentTime = 0; }
         mainMusicStarted = false;
+        identityStarted = false;
     } else {
         if (musicControl) musicControl.style.display = 'flex';
     }
@@ -222,6 +224,7 @@ function goToSplash() {
     });
     currentSlide = 0;
     mainMusicStarted = false;
+    identityStarted = false;
     const main = document.getElementById('audio-main');
     if (main) { main.pause(); main.currentTime = 0; }
     const identity = document.getElementById('audio-identity');
@@ -299,9 +302,12 @@ function initSlideAssets(slideId) {
     if (!isMuted) {
         if (slideId >= 3) {
             if (main) { main.pause(); }
-            if (identity && identity.paused) identity.play().catch(() => { });
+            if (identity && !identityStarted) {
+                identity.play().catch(() => { });
+                identityStarted = true;
+            }
         } else {
-            if (identity) { identity.pause(); identity.currentTime = 0; }
+            if (identity) { identity.pause(); identity.currentTime = 0; identityStarted = false; }
             if (main && main.paused && mainMusicStarted) main.play().catch(() => { });
         }
     }
@@ -316,8 +322,9 @@ function layoutSpiral() {
 
     const cx = wW / 2;
     const cy = wH / 2;
-    const CARD_W = 155;
-    const CARD_H = 140;
+    const isMobile = wW <= 600;
+    const CARD_W = isMobile ? 90 : 155;
+    const CARD_H = isMobile ? 82 : 140;
     const GOLDEN = 137.5077 * Math.PI / 180;
 
     const all = [...wall.querySelectorAll('.photo-card')];
@@ -325,8 +332,8 @@ function layoutSpiral() {
     const others = all.filter(c => c !== feat);
     const N = others.length;
 
-    const rX = wW * 0.45;
-    const rY = wH * 0.45;
+    const rX = wW * (isMobile ? 0.38 : 0.45);
+    const rY = wH * (isMobile ? 0.38 : 0.45);
 
     if (feat) {
         feat.style.left = (cx - CARD_W / 2) + 'px';
@@ -352,6 +359,10 @@ function initPhraseAnimation() {
     el.dataset.animated = '1';
     setTimeout(() => {
         el.style.animation = 'phraseTriumphal 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards';
+        el.addEventListener('animationend', () => {
+            el.style.opacity = '1';
+            el.style.animation = 'glowText 2s infinite alternate';
+        }, { once: true });
     }, 200);
 }
 
@@ -608,8 +619,8 @@ const dossierData = {
         image: "olimpiodoro.png"
     },
     prova: {
-        title: "La voce della prova",
-        subtitle: "Le indagini moderne",
+        title: "",
+        subtitle: "",
         body: "Nei secoli, molti hanno creduto di aver trovato indizi della tomba di Alarico.<br><br>Nel territorio di Mendicino, nell’area di Caronte e Alimena, alcuni segni sulla roccia e una grotta furono interpretati come prove.<br><br>Ma le indagini tecniche condotte da Ispra e dal Gruppo Tutela Patrimonio Archeologico della Guardia di Finanza hanno ridimensionato queste ipotesi.<br><br>La presunta croce sarebbe un fenomeno naturale.<br>Il deposito nella grotta non mostrerebbe origine umana.",
         highlight: "La scienza non distrugge il mistero. Lo mette alla prova.",
         icon: "search"
