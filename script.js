@@ -8,6 +8,66 @@ let isMuted = false;
 let mainMusicStarted = false;
 let identityStarted = false;
 
+// --- Slide 3: tracciamento hotspot ---
+const slide3Clicked = new Set();
+
+// --- Slide 5: tracciamento pin mappa ---
+const slide5Clicked = new Set();
+
+// --- Slide 7: tracciamento hotspot luoghi ---
+const slide7Clicked = new Set();
+
+function trackSlide3(id) {
+    slide3Clicked.add(id);
+}
+
+function trackSlide7(id) {
+    slide7Clicked.add(id);
+}
+
+function continueSlide7() {
+    if (slide7Clicked.size < 3) {
+        const msg = document.getElementById('slide7-warning');
+        if (msg) {
+            msg.style.opacity = '1';
+            clearTimeout(msg._hideTimer);
+            msg._hideTimer = setTimeout(() => { msg.style.opacity = '0'; }, 3500);
+        }
+        return;
+    }
+    nextSlide();
+}
+
+function trackSlide5(id) {
+    slide5Clicked.add(id);
+}
+
+function continueSlide5() {
+    if (slide5Clicked.size < 4) {
+        const msg = document.getElementById('slide5-warning');
+        if (msg) {
+            msg.style.opacity = '1';
+            clearTimeout(msg._hideTimer);
+            msg._hideTimer = setTimeout(() => { msg.style.opacity = '0'; }, 3500);
+        }
+        return;
+    }
+    nextSlide();
+}
+
+function continueSlide3() {
+    if (slide3Clicked.size < 3) {
+        const msg = document.getElementById('slide3-warning');
+        if (msg) {
+            msg.style.opacity = '1';
+            clearTimeout(msg._hideTimer);
+            msg._hideTimer = setTimeout(() => { msg.style.opacity = '0'; }, 3500);
+        }
+        return;
+    }
+    goToSlide(5);
+}
+
 // --- Entry Logic ---
 
 function enterExperience() {
@@ -623,7 +683,8 @@ const dossierData = {
         subtitle: "",
         body: "Nei secoli, molti hanno creduto di aver trovato indizi della tomba di Alarico.<br><br>Nel territorio di Mendicino, nell’area di Caronte e Alimena, alcuni segni sulla roccia e una grotta furono interpretati come prove.<br><br>Ma le indagini tecniche condotte da Ispra e dal Gruppo Tutela Patrimonio Archeologico della Guardia di Finanza hanno ridimensionato queste ipotesi.<br><br>La presunta croce sarebbe un fenomeno naturale.<br>Il deposito nella grotta non mostrerebbe origine umana.",
         highlight: "La scienza non distrugge il mistero. Lo mette alla prova.",
-        icon: "search"
+        icon: "search",
+        image: "23.jpeg"
     },
     verdetto: {
         title: "Il verdetto",

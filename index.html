@@ -20,12 +20,14 @@
 <div id="entry-overlay">
     <div class="entry-content">
         <h1 class="glow-text">La storia di Alarico, re dei Visigoti</h1>
-        <p>Scoprire il territorio, rivivere la storia.<br>Con l'intelligenza artificiale proviamo a svelare il mistero del tesoro di Alarico.</p>
+        <p>Scoprire il territorio, rivivere la storia.<br>Con l'intelligenza artificiale proviamo a svelare il mistero
+            del tesoro di Alarico.</p>
         <button class="btn majestic-btn" onclick="enterExperience()">Entra nel mistero</button>
     </div>
     <div class="entry-footer">
         <div class="entry-divider-ancient">⸻ ✦ ⸻</div>
-        <p class="entry-credits">A cura della 1A LSA<br>Istituto di Istruzione Superiore Statale "Valentini - Majorana"</p>
+        <p class="entry-credits">A cura della 1A LSA<br>Istituto di Istruzione Superiore Statale "Valentini - Majorana"
+        </p>
     </div>
 </div>
 
@@ -91,7 +93,7 @@
             <h2>Ambientazione della storia</h2>
             <h1>Consentia</h1>
             <p>
-                Il nome deriva da una parola osco-sabellica che indica un <b>luogo di accordo</b>.
+                Il nome deriva da una parola Osco-Sabellica che indica un <b>luogo di accordo</b>.
                 Capitale dei Brettii (o Bruzi), divenne nel IV secolo a.C. il cuore di un popolo fiero,
                 separatosi dai Lucani per forgiare la propria identità.
             </p>
@@ -157,25 +159,28 @@
     <div class="slide" id="slide-3" style="background-image: url('assets/gallery/bg_identity.png')">
         <div class="slide-overlay"></div>
         <div class="slide-content" id="slide-3-content">
-            <img src="assets/gallery/ciAlarico.png" alt="Carta di identità di Alarico"
+            <img src="assets/gallery/ciAlarico.jpeg" alt="Carta di identità di Alarico"
                 style="border-radius: 4px; object-fit: contain;">
             <h1>La carta di identità di Alarico</h1>
             <h2>Era veramente un barbaro spietato, o questa è una fake news?</h2>
             <div class="interactive-grid">
                 <div class="hotspot"
-                    onclick="showFeedback('GUERRIERO', 'Nato nel 370 d.C. dalla nobile famiglia dei Balti, Alarico era un raffinato <i>Magister Militum</i> inserito nel mondo romano. Univa la forza del guerriero alla raffinatezza del nobile.', false, 'magister militum.webp')">
+                    onclick="trackSlide3('shield'); showFeedback('GUERRIERO', 'Nato nel 370 d.C. dalla nobile famiglia dei Balti, Alarico era un raffinato <i>Magister Militum</i> inserito nel mondo romano. Univa la forza del guerriero alla raffinatezza del nobile.', false, 'magister militum.webp')">
                     <div class="hotspot-icon hotspot-shield"></div>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('RE VISIGOTO', 'Eletto Re dal suo popolo, guidò i Visigoti nella conquista di Roma, portando con sé il tesoro imperiale. Ma, dietro il sacco di Roma, si nasconde una storia di giusti compensi, negati per ben tre volte all\' esercito dei Visigoti. Eppure, sarebbe bastato lo stipendio di uno solo dei seicento senatori romani come ricompensa per i servigi ricevuti. Tuttavia, la cupidigia dell\'imperatore fu tale da scatenare una furibonda reazione da parte dei soldati di Alarico, seguita da saccheggi e rapimenti. Tra gli ostaggi, anche Galla Placidia, sorella dell\'imperatore, rispettata e onorata dai Visigoti, che ebbero anche ordine di non distruggere chiese e templi. Galla Placidia divenne poi imperatrice.', false, 'sacco.png')">
+                    onclick="trackSlide3('crown'); showFeedback('RE VISIGOTO', 'Eletto Re dal suo popolo, guidò i Visigoti nella conquista di Roma, portando con sé il tesoro imperiale. Ma, dietro il sacco di Roma, si nasconde una storia di giusti compensi, negati per ben tre volte all\' esercito dei Visigoti. Eppure, sarebbe bastato lo stipendio di uno solo dei seicento senatori romani come ricompensa per i servigi ricevuti. Tuttavia, la cupidigia dell\'imperatore fu tale da scatenare una furibonda reazione da parte dei soldati di Alarico, seguita da saccheggi e rapimenti. Tra gli ostaggi, anche Galla Placidia, sorella dell\'imperatore, rispettata e onorata dai Visigoti, che ebbero anche ordine di non distruggere chiese e templi. Galla Placidia divenne poi imperatrice.', false, 'sacco.png')">
                     <div class="hotspot-icon hotspot-crown"></div>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('IL VIAGGIO ALLA VOLTA DELL\'AFRICA', 'Il suo viaggio si concluse a Cosenza, dove il destino lo reclamò prima che potesse raggiungere l\'Africa, verso cui stava marciando, perché considerata il <i>granaio di Roma</i>, fondamentale per approvvigionare il suo popolo. Già due tentativi di traversata erano andati falliti, a causa di tempeste che distrussero la sua flotta. ', false, 'TEMPESTA.png')">
+                    onclick="trackSlide3('map'); showFeedback('IL VIAGGIO ALLA VOLTA DELL\'AFRICA', 'Il suo viaggio si concluse a Cosenza, dove il destino lo reclamò prima che potesse raggiungere l\'Africa, verso cui stava marciando, perché considerata il <i>granaio di Roma</i>, fondamentale per approvvigionare il suo popolo. Già due tentativi di traversata erano andati falliti, a causa di tempeste che distrussero la sua flotta. ', false, 'TEMPESTA.png')">
                     <div class="hotspot-icon hotspot-map"></div>
                 </div>
             </div>
-            <button class="btn" onclick="goToSlide(5)">Continua</button>
+            <p id="slide3-warning"
+                style="color: var(--gold); font-size: 0.82rem; font-style: italic; text-align: center; opacity: 0; transition: opacity 0.4s ease; margin: 0.2rem 0;">
+                Prima di proseguire, clicca sulle immagini di scudo, corona e mappa</p>
+            <button class="btn" onclick="continueSlide3()">Continua</button>
         </div>
     </div>
 
@@ -224,22 +229,22 @@
             <div class="fullscreen-map-inner">
                 <img src="assets/gallery/viaPopilia.png" alt="Via Popilia">
 
-                <div class="map-pin roma" onclick="showRomaFeedback()">
+                <div class="map-pin roma" onclick="trackSlide5('roma'); showRomaFeedback()">
                     <span class="pin-label">ROMA</span>
                     <div class="pin-dot"></div>
                 </div>
                 <div class="map-pin capua"
-                    onclick="showFeedback('CAPUA', 'Tappa strategica lungo la direttrice della Via Popilia.')">
+                    onclick="trackSlide5('capua'); showFeedback('CAPUA', 'Tappa strategica lungo la direttrice della Via Popilia.')">
                     <span class="pin-label">CAPUA</span>
                     <div class="pin-dot"></div>
                 </div>
                 <div class="map-pin cosenza"
-                    onclick="showFeedback('CONSENTIA', 'Il crocevia del destino, dove il Busento accoglierà il Re. Dopo aver saccheggiato Roma, nell\'agosto del 410, l\' esercito visigoto si spostò verso la Calabria, arrivando nell\'area di Cosenza. Colto dalla malattia, Alarico morì nel pieno della campagna militare, a soli 40 anni circa, probabilmente per febbre malarica. I Visigoti usavano seppellire i loro defunti nel luogo in cui morivano. Ed è per questo che la leggenda narra che fu sepolto con il suo cavallo e il suo immenso tesoro, il bottino di Roma, nel letto del fiume Busento. Fu implementata una grande opera di ingegneria idraulica, che prevedeva la deviazione del letto del fiume, per scavare la fossa funeraria. Poi, il letto del fiume fu ripristinato e le acque ripresero il loro corso naturale. Gli schiavi che furono utilizzati per scavare la tomba furono tutti uccisi, perché non rivelassero mai il segreto della sepoltura.', false, 'deviazione.png')">
+                    onclick="trackSlide5('consentia'); showFeedback('CONSENTIA', 'Il crocevia del destino, dove il Busento accoglierà il Re. Dopo aver saccheggiato Roma, nell\'agosto del 410, l\' esercito visigoto si spostò verso la Calabria, arrivando nell\'area di Cosenza. Colto dalla malattia, Alarico morì nel pieno della campagna militare, a soli 40 anni circa, probabilmente per febbre malarica. I Visigoti usavano seppellire i loro defunti nel luogo in cui morivano. Ed è per questo che la leggenda narra che fu sepolto con il suo cavallo e il suo immenso tesoro, il bottino di Roma, nel letto del fiume Busento. Fu implementata una grande opera di ingegneria idraulica, che prevedeva la deviazione del letto del fiume, per scavare la fossa funeraria. Poi, il letto del fiume fu ripristinato e le acque ripresero il loro corso naturale. Gli schiavi che furono utilizzati per scavare la tomba furono tutti uccisi, perché non rivelassero mai il segreto della sepoltura.', false, 'deviazione.png')">
                     <span class="pin-label">CONSENTIA</span>
                     <div class="pin-dot"></div>
                 </div>
                 <div class="map-pin reggio"
-                    onclick="showFeedback('RHEGIUM', 'L\'ultimo porto continentale prima del sogno africano, ahimè, mai raggiunto.')">
+                    onclick="trackSlide5('rhegium'); showFeedback('RHEGIUM', 'L\'ultimo porto continentale prima del sogno africano, ahimè, mai raggiunto.')">
                     <span class="pin-label">RHEGIUM</span>
                     <div class="pin-dot"></div>
                 </div>
@@ -252,7 +257,11 @@
             <p>L'ultima marcia verso il Sud, dopo il sacco di Roma. Clicca sui punti della Via Popilia per esplorare le
                 tappe.</p>
 
-            <button class="btn" onclick="nextSlide()" style="margin-top: 1rem;">Chi ha indagato su Alarico?</button>
+            <p id="slide5-warning"
+                style="color: var(--gold); font-size: 0.82rem; font-style: italic; text-align: center; opacity: 0; transition: opacity 0.4s ease; margin: 0.2rem 0;">
+                Prima di proseguire, clicca su Roma, Capua, Consentia e Rhegium</p>
+            <button class="btn" onclick="continueSlide5()" style="margin-top: 1rem;">Chi ha indagato su
+                Alarico?</button>
         </div>
     </div>
 
@@ -331,20 +340,23 @@
 
             <div class="interactive-grid">
                 <div class="hotspot"
-                    onclick="showFeedback('BISIGNANO - COZZO ROTONDO', 'Una collina artificiale sospetta. La teoria si basa sull\'assonanza linguistica: Busento potrebbe essere una storpiatura nei secoli di Bisenzio o Byzantium.', false, 'cozzorotondo.jpg')">
+                    onclick="trackSlide7('bisignano'); showFeedback('BISIGNANO - COZZO ROTONDO', 'Una collina artificiale sospetta. La teoria si basa sull\'assonanza linguistica: Busento potrebbe essere una storpiatura nei secoli di Bisenzio o Byzantium.', false, 'cozzorotondo.jpg')">
                     <i data-lucide="map-pin"></i>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('DOMANICO', 'Domanico (Grotte Naturali) La teoria dei fratelli Bosco. Presenza del fiume Caronte e di una grande croce scolpita sulla roccia in una località chiamata Regardi (dal gotico: guardare con devozione).', false, 'domanico.jpg')">
+                    onclick="trackSlide7('domanico'); showFeedback('DOMANICO', 'Domanico - La teoria dei fratelli Bosco. Presenza del fiume Caronte e di una grande croce scolpita sulla roccia in una località chiamata Regardi (dal gotico: guardare con devozione).', false, 'domanico.jpg')">
                     <i data-lucide="map-pin"></i>
                 </div>
                 <div class="hotspot"
-                    onclick="showFeedback('Grotte dell\'Alimena', 'Cavità naturali associate al passaggio dei Goti.', false, '11.jpg')">
+                    onclick="trackSlide7('alimena'); showFeedback('Grotte dell\'Alimena', 'Cavità naturali associate al passaggio dei Goti.', false, '11.jpg')">
                     <i data-lucide="map-pin"></i>
                 </div>
             </div>
 
-            <button class="btn" onclick="nextSlide()">Ci sei quasi!</button>
+            <p id="slide7-warning"
+                style="color: var(--gold); font-size: 0.82rem; font-style: italic; text-align: center; opacity: 0; transition: opacity 0.4s ease; margin: 0.2rem 0;">
+                Prima di proseguire, clicca su tutti e tre i luoghi</p>
+            <button class="btn" onclick="continueSlide7()">Ci sei quasi!</button>
         </div>
         <div class="nav-arrows">
             <div class="nav-arrow" onclick="prevSlide()"><i data-lucide="chevron-left"></i></div>
@@ -481,8 +493,9 @@
         style="display:none; position:relative; z-index:2; max-width:600px; background:rgba(0,0,0,0.82); border:1px solid var(--gold); border-radius:10px; padding:2rem; text-align:center; color:#f5e6c8; font-size:1.05rem; line-height:1.8;">
         <p>I tesori del Tempio di Gerusalemme — saccheggiati da Tito nel 70 d.C. e portati a Roma — finirono nel bottino
             di Alarico dopo il sacco del 410 d.C. Tra questi, secondo la leggenda, vi era il <strong>Sacro
-                Graal</strong>: la coppa usata da Gesù nell'Ultima Cena, simbolo del potere sacro dei Visigoti. Si stima
-            che ci fossero circa 25 tonnellate di oro e 150 tonnellate di argento.</p>
+                Graal</strong>: la coppa usata da Gesù nell'Ultima Cena, simbolo del potere sacro dei Visigoti. Finanche
+            Hitler, assetato di potere, inviò a Cosenza il suo generale Himmler, alla ricerca del Sacro Graal. Si stima
+            che nel tesoro ci fossero circa 25 tonnellate di oro e 150 tonnellate di argento.</p>
         <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.2rem; flex-wrap:wrap;">
             <button class="btn" onclick="openGraalSub('oro')">A quanto equivalgono 25 tonnellate d'oro?</button>
             <button class="btn" onclick="openGraalSub('argento')">A quanto equivalgono 150 tonnellate

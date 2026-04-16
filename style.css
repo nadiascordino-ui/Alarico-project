@@ -240,7 +240,7 @@ h4 {
     width: 100%;
     text-align: center;
     opacity: 0;
-    animation: fadeIn 1s ease 5s forwards;
+    animation: fadeIn 1s ease 3s forwards;
     z-index: 10001;
 }
 
@@ -271,7 +271,7 @@ h4 {
 
 .entry-content .majestic-btn {
     opacity: 0;
-    animation: fadeIn 1s ease 4s forwards;
+    animation: fadeIn 1s ease 4.5s forwards;
 }
 
 @keyframes diffuseIn {
